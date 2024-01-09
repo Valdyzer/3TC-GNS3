@@ -182,9 +182,3 @@ for AS in data['autonomous_systems']:
             area = router_info['area']
             interfaces = router_info['interfaces']
             configure_OSPF(host, port, router_id, area, interfaces)
-
-
-
-
-
-
