@@ -167,6 +167,12 @@ def configure_eBGP(host, port, as_id, router_id):
     tn.write(b"write\r\n")
     tn.sleep(timer)
 
+def configure_eBGP_BR(host, port):
+    pass
+
+def configure_iBGP(host, port):
+    pass
+
 #-----------Appel aux fonctions------------
 
 #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
