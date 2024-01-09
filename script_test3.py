@@ -151,24 +151,53 @@ def configure_OSPF(host, port, router_id, area, interfaces):
 def configure_eBGP(host, port, as_id, router_id):
     tn = telnetlib.Telnet(host, port)
     timer = 5
-    tn.write(b"\r\n")
+    tn.write(b"\r\nend\r\n")
+    time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
     tn.write(b"configure terminal\r\n")
     time.sleep(timer)
     tn.write("router bgp {}\r\n".format(as_id).encode('ascii'))
-    tn.sleep(timer)
+    time.sleep(timer)
     tn.write(b"no bgp default ipv4-unicast\r\n")
-    tn.sleep(timer)
+    time.sleep(timer)
     tn.write("bgp router {}\r\n".format(router_id).encode('ascii'))
-    tn.sleep(timer)
+    time.sleep(timer)
     tn.write(b"end\r\n")
-    tn.sleep(timer)
+    time.sleep(timer)
     tn.write(b"write\r\n")
-    tn.sleep(timer)
+    time.sleep(timer)
 
-def configure_eBGP_BR(host, port):
-    pass
+def configure_eBGP_BR(host, port, as_id, neighbors, networks):
+    tn = telnetlib.Telnet(host, port)
+    timer = 5
+    tn.write(b"\r\nend\r\n")
+    time.sleep(timer)
+    tn.write(b"enable\r\n")
+    time.sleep(timer)
+    tn.write(b"configure terminal\r\n")
+    time.sleep(timer)
+    tn.write("router bgp {}\r\n".format(as_id).encode('ascii'))
+    time.sleep(timer)
+    for neighbor in neighbors :
+        tn.write("neighbor {} remote-as {}\r\n".format(neighbor["ipv6"], neighbor["as_id"]).encode('ascii'))
+        time.sleep(timer)
+        tn.write(b"address-family ipv6 unicast\r\n")
+        time.sleep(timer)
+        tn.write("neighbor {} activate\r\n".format(neighbor["ipv6"]).encode('ascii'))
+        time.sleep(timer)
+        tn.write(b"exit\r\n")
+        time.sleep(timer)
+    tn.write(b"address-family ipv6 unicast\r\n")
+    time.sleep(timer)
+    for network in networks :
+        tn.write("network {}\r\n".format(network).encode('ascii'))
+        time.sleep(timer)
+    tn.write(b"end\r\n")
+    time.sleep(timer)
+    tn.write(b"write\r\n")
+    time.sleep(timer)    
+
 
 def configure_iBGP(host, port):
     pass
