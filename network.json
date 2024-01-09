@@ -10,7 +10,10 @@
           "BR": 0,
           "interfaces": [
             {"interface_id": "GigabitEthernet1/0", "link_to": "R2", "ip_address": "2001:192:168:1::1/126", "area": "0", "border_if": 0}
-          ]
+          ],
+          "iBGP": {
+            "ipv6 loopback": "2001:192:168:100::1/126", "neighbors": ["2001:192:168:200::1", "2001:192:168:300::1"]
+          }
         },
         "R2":{
           "router_id": "2.2.2.2", 
@@ -19,7 +22,10 @@
           "interfaces": [
             {"interface_id": "GigabitEthernet1/0", "link_to": "R1", "ip_address":"2001:192:168:1::2/126", "area": "0", "border_if":0},
             {"interface_id": "GigabitEthernet2/0", "link_to": "R3", "ip_address":"2001:192:168:2::1/126", "area": "0", "border_if": 0}
-          ]
+          ],
+          "iBGP": {
+            "ipv6 loopback": "2001:192:168:200::1/126", "neighbors": ["2001:192:168:100::1", "2001:192:168:300::1"]
+          }
         },
         "R3":{
             "router_id": "3.3.3.3",
@@ -35,7 +41,7 @@
               "networks": ["2001:192:168:10::/126", "2001:192:168:1::/126"]
             },
             "iBGP": {
-              "ipv6 loopback": "2001:192:168:300::1/126", "neighbors": ["2001:192:168:500::1", "2001:192:168:600::1"]
+              "ipv6 loopback": "2001:192:168:300::1/126", "neighbors": ["2001:192:168:100::1", "2001:192:168:200::1"]
             }
           }
         }
@@ -58,7 +64,7 @@
             ], 
               "networks": ["2001:192:168:10::/126", "2001:192:168:4::/126"]
             },
-            "iBGP": {"ipv6 loopback": "2001:192:168:300::1/126", "neighbors": ["2001:192:168:500::1", "2001:192:168:600::1"]}
+            "iBGP": {"ipv6 loopback": "2001:192:168:400::1/126", "neighbors": ["2001:192:168:500::1", "2001:192:168:600::1"]}
         },
         "R5":{
           "router_id": "5.5.5.5",
@@ -67,7 +73,10 @@
           "interfaces": [
             {"interface_id": "GigabitEthernet1/0", "link_to": "R4", "ip_address":"2001:192:168:3::2/126", "border_if": 0},
             {"interface_id": "GigabitEthernet2/0", "link_to": "R6", "ip_address":"2001:192:168:4::1/126", "border_if": 0}
-          ]
+          ],
+          "iBGP": {
+            "ipv6 loopback": "2001:192:168:500::1/126", "neighbors": ["2001:192:168:400::1", "2001:192:168:600::1"]
+          }
         },
         "R6":{
           "router_id": "6.6.6.6",
@@ -75,7 +84,10 @@
           "BR": 0,
           "interfaces": [
             {"interface_id": "GigabitEthernet2/0", "link_to": "R5", "ip_address":"2001:192:168:4::2/126"}
-          ]
+          ],
+          "iBGP": {
+            "ipv6 loopback": "2001:192:168:600::1/126", "neighbors": ["2001:192:168:400::1", "2001:192:168:500::1"]
+          }
         }
       }
     }
