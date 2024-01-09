@@ -56,6 +56,9 @@ def reset_router(host, port):
     timer = 5
     # Reset la config du routeur
     tn.write(b"\r\n")
+    time.sleep(timer)
+    tn.write(b"end\r\n")
+    timer.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
     tn.write(b"write erase\r\n") #efface toute la config du routeur
@@ -72,6 +75,9 @@ def configure_router(host, port, interfaces):
     # Configuration des interfaces
     for interface in interfaces:
         tn.write(b"\r\n")
+        time.sleep(timer)
+        tn.write(b"end\r\n")
+        time.sleep(timer)
         tn.write(b"enable\r\n")
         time.sleep(timer)
         tn.write(b"configure terminal\r\n")
@@ -96,6 +102,9 @@ def configure_RIP(host, port, interfaces):
     tn = telnetlib.Telnet(host, port)
     timer = 5
     tn.write(b"\r\n")
+    time.sleep(timer)
+    tn.write(b"end\r\n")
+    time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
     tn.write(b"configure terminal\r\n")
@@ -124,6 +133,9 @@ def configure_OSPF(host, port, router_id, area, interfaces):
     tn = telnetlib.Telnet(host, port)
     timer = 5
     tn.write(b"\r\n")
+    time.sleep(timer)
+    tn.write(b"end\r\n")
+    time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
     tn.write(b"configure terminal\r\n")
@@ -151,7 +163,9 @@ def configure_OSPF(host, port, router_id, area, interfaces):
 def configure_eBGP(host, port, as_id, router_id):
     tn = telnetlib.Telnet(host, port)
     timer = 5
-    tn.write(b"\r\nend\r\n")
+    tn.write(b"\r\n")
+    time.sleep(timer)
+    tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
@@ -171,7 +185,9 @@ def configure_eBGP(host, port, as_id, router_id):
 def configure_eBGP_BR(host, port, as_id, neighbors, networks):
     tn = telnetlib.Telnet(host, port)
     timer = 5
-    tn.write(b"\r\nend\r\n")
+    tn.write(b"\r\n")
+    time.sleep(timer)
+    tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
@@ -199,7 +215,20 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks):
     time.sleep(timer)    
 
 
-def configure_iBGP(host, port):
+def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors):
+    tn = telnetlib.Telnet(host, port)
+    timer = 5
+    tn.write(b"\r\n")
+    time.sleep(timer)
+    tn.write(b"end\r\n")
+    time.sleep(timer)
+    tn.write(b"configure terminal\r\n")
+    time.sleep(timer)
+    tn.write(b"interface loopback 0\r\n")
+    time.sleep(timer)
+    tn.write(b"ipv6 enable\r\n")
+    time.sleep(timer)
+    tn.write("ipv6 address {}".format(ipv6_loopback).encode('ascii'))
     pass
 
 #-----------Appel aux fonctions------------
