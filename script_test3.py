@@ -63,25 +63,22 @@ def reset_router(host, port):
     time.sleep(timer)
     tn.write(b"\r\n")  #Confirmation du "erase"
     time.sleep(timer)
-    tn.write(b"reload\r\n") #reload le routeur pour bien appliquer les changements et que la config soit bien effacée
-    time.sleep(timer)
-    tn.write(b"\r\n")  #Confirmation du "reload"
-    time.sleep(timer)
     
 def configure_router(host, port, interfaces):
     # Connection à Telnet
     tn = telnetlib.Telnet(host, port)
     timer = 5
+    tn.write(b"\r\n")
+    time.sleep(timer)
+    tn.write(b"enable\r\n")
+    time.sleep(timer)
+    tn.write(b"configure terminal\r\n")
+    time.sleep(timer)
+    tn.write(b"ipv6 unicast-routing\r\n")
+    time.sleep(timer)
+
     # Configuration des interfaces
     for interface in interfaces:
-        tn.write(b"\r\n")
-        time.sleep(timer)
-        tn.write(b"enable\r\n")
-        time.sleep(timer)
-        tn.write(b"configure terminal\r\n")
-        time.sleep(timer)
-        tn.write(b"ipv6 unicast-routing\r\n")
-        time.sleep(timer)
         tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
         time.sleep(timer)
         tn.write(b"ipv6 enable\r\n")
@@ -90,11 +87,15 @@ def configure_router(host, port, interfaces):
         time.sleep(timer)
         tn.write(b"no shutdown\r\n")
         time.sleep(timer)
-        tn.write(b"end\r\n")
+        tn.write(b"exit\r\n")
         time.sleep(timer)
 
-    tn.write(b"exit\r\n") #je suis pas sûre que ça soit nécessaire
-
+    tn.write(b"end\r\n")
+    time.sleep(time) 
+    tn.write(b"write\r\n")
+    time.sleep(timer)
+    tn.write(b"\r\n")
+    time.sleep(timer)
 
 def configure_RIP(host, port, interfaces):
     tn = telnetlib.Telnet(host, port)
@@ -122,6 +123,9 @@ def configure_RIP(host, port, interfaces):
     tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"write\r\n")
+    time.sleep(timer)
+    tn.write(b"\r\n")
+    time.sleep(timer)
     
 def configure_OSPF(host, port, router_id, area, interfaces): 
     tn = telnetlib.Telnet(host, port)
@@ -151,6 +155,8 @@ def configure_OSPF(host, port, router_id, area, interfaces):
     time.sleep(timer)
     tn.write(b"write\r\n")
     time.sleep(timer)
+    tn.write(b"\r\n")
+    time.sleep(timer)
     
 def configure_eBGP(host, port, as_id, router_id):
     tn = telnetlib.Telnet(host, port)
@@ -170,6 +176,8 @@ def configure_eBGP(host, port, as_id, router_id):
     tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"write\r\n")
+    time.sleep(timer)
+    tn.write(b"\r\n")
     time.sleep(timer)
 
 def configure_eBGP_BR(host, port, as_id, neighbors, networks):
