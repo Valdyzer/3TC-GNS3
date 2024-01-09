@@ -93,31 +93,30 @@ def configure_router(host, port, interfaces):
 
 
 def configure_RIP(host, port, interfaces):
+    tn = telnetlib.Telnet(host, port)
+    timer = 5
+    tn.write(b"\r\n")
+    tn.write(b"enable\r\n")
+    time.sleep(timer)
+    tn.write(b"configure terminal\r\n")
+    time.sleep(timer)
+    tn.write(b"ipv6 router rip RIPng\r\n")
+    time.sleep(timer)
+    tn.write(b"redistribute connected\r\n")
+    time.sleep(timer)
+    tn.write(b"exit\r\n")
+    time.sleep(timer)
     for interface in interfaces:
-        tn = telnetlib.Telnet(host, port)
-        timer = 5
-        tn.write(b"\r\n")
-        tn.write(b"enable\r\n")
+        tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
         time.sleep(timer)
-        tn.write(b"configure terminal\r\n")
-        time.sleep(timer)
-        tn.write(b"ipv6 router rip RIPng\r\n")
-        time.sleep(timer)
-        tn.write(b"redistribute connected\r\n")
+        tn.write(b"ipv6 rip RIPNG enable\r\n")
         time.sleep(timer)
         tn.write(b"exit\r\n")
         time.sleep(timer)
-        for interface in interfaces:
-            tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
-            time.sleep(timer)
-            tn.write(b"ipv6 rip RIPNG enable\r\n")
-            time.sleep(timer)
-            tn.write(b"exit\r\n")
-            time.sleep(timer)
-        #cris: on doit voir comment on fait pour les routers de bordure parce que pour l'interface qui va vers l'exterieur on ne doit pas configurer ce protocol
-        #on peut voir si le router auquel il est connecté appartient au même AS ou pas, comme ça on sait si on veut configurer un protocol interne ou pas
-        #on doit mettre un if dans le "for" ou bien quand on appelle la fonction pour ne donner que les interfaces qui nous interessent
-        tn.write(b"end\r\n")
+    #cris: on doit voir comment on fait pour les routers de bordure parce que pour l'interface qui va vers l'exterieur on ne doit pas configurer ce protocol
+    #on peut voir si le router auquel il est connecté appartient au même AS ou pas, comme ça on sait si on veut configurer un protocol interne ou pas
+    #on doit mettre un if dans le "for" ou bien quand on appelle la fonction pour ne donner que les interfaces qui nous interessent
+    tn.write(b"end\r\n")
 #on rajoute tn.write(b"write\r\n") ou pas nécessaire? 
     
 def configure_OSPF(host, port, router_id, area, interfaces): 
@@ -144,6 +143,25 @@ def configure_OSPF(host, port, router_id, area, interfaces):
     time.sleep(timer)
     tn.write(b"write\r\n")
     time.sleep(timer)
+    
+def configure_eBGP(host, port, as_id, router_id):
+    tn = telnetlib.Telnet(host, port)
+    timer = 5
+    tn.write(b"\r\n")
+    tn.write(b"enable\r\n")
+    time.sleep(timer)
+    tn.write(b"configure terminal\r\n")
+    time.sleep(timer)
+    tn.write("router bgp {}\r\n".format(as_id).encode('ascii'))
+    tn.sleep(timer)
+    tn.write(b"no bgp default ipv4-unicast\r\n")
+    tn.sleep(timer)
+    tn.write("bgp router {}\r\n".format(router_id).encode('ascii'))
+    tn.sleep(timer)
+    tn.write(b"end\r\n")
+    tn.sleep(timer)
+    tn.write(b"write\r\n")
+    tn.sleep(timer)
 
 #-----------Appel aux fonctions------------
 
