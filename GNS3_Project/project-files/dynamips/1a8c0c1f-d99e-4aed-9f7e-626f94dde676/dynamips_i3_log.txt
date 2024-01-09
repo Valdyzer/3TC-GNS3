@@ -1,0 +1,50 @@
+Jan 09 13:21:19.426 HYPERVISOR: Release 0.2.23-amd64/Darwin (tag 2023010200)
+Jan 09 13:21:19.427 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 50959.
+Jan 09 13:21:19.434 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 09 13:21:19.434 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/GNS3_Project/project-files/dynamips 
+Jan 09 13:21:19.434 GENERAL: working_dir=/Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/GNS3_Project/project-files/dynamips
+Jan 09 13:21:19.435 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/GNS3_Project/project-files/dynamips/1a8c0c1f-d99e-4aed-9f7e-626f94dde676 
+Jan 09 13:21:19.435 GENERAL: working_dir=/Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/GNS3_Project/project-files/dynamips/1a8c0c1f-d99e-4aed-9f7e-626f94dde676
+Jan 09 13:21:19.435 HYPERVISOR: exec_cmd: vm create R3 3 c7200 
+Jan 09 13:21:19.435 VM: VM R3 created.
+Jan 09 13:21:19.435 HYPERVISOR: exec_cmd: vm set_con_tcp_port R3 5009 
+Jan 09 13:21:19.435 HYPERVISOR: exec_cmd: c7200 get_mac_addr R3 
+Jan 09 13:21:19.435 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:21:19.436 HYPERVISOR: exec_cmd: vm slot_add_binding R3 0 0 C7200-IO-FE 
+Jan 09 13:21:19.436 HYPERVISOR: exec_cmd: vm set_disk0 R3 0 
+Jan 09 13:21:19.436 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:21:19.436 HYPERVISOR: exec_cmd: vm set_idle_pc R3 0x0 
+Jan 09 13:21:19.437 HYPERVISOR: exec_cmd: vm set_ios R3 /Users/valentinrenaud/GNS3/images/IOS/c7200-advipservicesk9-mz.152-4.S5.image 
+Jan 09 13:21:19.437 HYPERVISOR: exec_cmd: c7200 set_mac_addr R3 ca03.05f1.0000 
+Jan 09 13:21:19.437 HYPERVISOR: exec_cmd: vm set_nvram R3 512 
+Jan 09 13:21:19.438 HYPERVISOR: exec_cmd: vm set_ram R3 512 
+Jan 09 13:21:19.438 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:21:19.438 HYPERVISOR: exec_cmd: vm slot_add_binding R3 1 0 PA-GE 
+Jan 09 13:21:19.438 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:21:19.439 HYPERVISOR: exec_cmd: vm slot_add_binding R3 2 0 PA-GE 
+Jan 09 13:21:19.439 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:21:19.439 HYPERVISOR: exec_cmd: vm slot_add_binding R3 3 0 PA-GE 
+Jan 09 13:21:19.439 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:21:19.439 HYPERVISOR: exec_cmd: vm slot_add_binding R3 4 0 PA-GE 
+Jan 09 13:21:20.128 HYPERVISOR: exec_cmd: nio create_udp udp-2554f84f-d75f-4e3b-9217-6d53037780f9 10010 127.0.0.1 10011 
+Jan 09 13:21:20.357 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 2 0 udp-2554f84f-d75f-4e3b-9217-6d53037780f9 
+Jan 09 13:21:20.358 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:21:21.243 HYPERVISOR: exec_cmd: nio create_udp udp-5a782527-b148-4c3b-8541-4e33a71c15e6 10026 127.0.0.1 10027 
+Jan 09 13:21:21.244 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 3 0 udp-5a782527-b148-4c3b-8541-4e33a71c15e6 
+Jan 09 13:21:21.244 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:27:33.887 HYPERVISOR: exec_cmd: vm set_ghost_status R3 2 
+Jan 09 13:27:33.887 HYPERVISOR: exec_cmd: vm set_ghost_file R3 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/GNS3_Project/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 09 13:27:33.888 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:27:33.888 HYPERVISOR: exec_cmd: vm set_config R3 configs/i3_startup-config.cfg 
+Jan 09 13:27:33.888 HYPERVISOR: exec_cmd: vm start R3 
+Jan 09 13:28:01.556 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:28:01.557 HYPERVISOR: exec_cmd: vm stop R3 
+Jan 09 13:28:01.653 VM: VM R3 shutdown.
+Jan 09 13:28:01.654 HYPERVISOR: exec_cmd: vm extract_config R3 
+Jan 09 13:28:01.940 HYPERVISOR: exec_cmd: vm get_status R3 
+Jan 09 13:28:01.941 HYPERVISOR: exec_cmd: vm extract_config R3 
+Jan 09 13:28:01.942 HYPERVISOR: exec_cmd: vm delete R3 
+Jan 09 13:28:01.942 VM: VM R3 destroyed.
+Jan 09 13:28:01.943 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 09 13:28:02.122 HYPERVISOR: Stopped.
+Jan 09 13:28:02.123 GENERAL: reset done.

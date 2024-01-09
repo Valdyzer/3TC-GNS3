@@ -1,0 +1,364 @@
+		
+***********************************	RIP	************************************
+
+Pour R1 :
+
+configure terminal
+	ipv6 unicast-routing
+  	interface GigabitEthernet 1/0
+    		ipv6 address 2001:192:168:1::1/126
+    		no shutdown
+    		exit
+  	ipv6 router rip RIPNG
+    		redistribute connected
+    		exit
+ 	interface GigabitEthernet 1/0
+    		ipv6 rip RIPNG enable
+		end
+write
+
+ 
+---------------------------------------------------------------------------------
+
+Pour R2 :
+
+configure terminal
+	ipv6 unicast-routing
+	interface GigabitEthernet 1/0
+    		ipv6 address 2001:192:168:1::2/126
+    		no shutdown
+    		exit
+  	interface GigabitEthernet 2/0
+    		ipv6 address 2001:192:168:2::1/126
+    		no shutdown
+    		exit
+  	ipv6 router rip RIPNG
+    		redistribute connected
+    		exit
+ 	interface GigabitEthernet 1/0
+    		ipv6 rip RIPNG enable
+    		exit
+ 	interface GigabitEthernet 2/0
+    		ipv6 rip RIPNG enable
+    		end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R3:
+
+configure terminal
+	ipv6 unicast-routing
+  	interface GigabitEthernet 2/0
+    		ipv6 address 2001:192:168:2::2/126
+    		no shutdown
+    		exit
+  	ipv6 router rip RIPNG
+    		redistribute connected
+    		exit
+ 	interface GigabitEthernet 2/0
+    		ipv6 rip RIPNG enable
+    		end
+write
+
+
+
+
+***************************	OSPF	**************************
+
+
+Pour R4 :
+
+configure terminal
+	ipv6 unicast-routing
+	interface GigabitEthernet 1/0
+		ipv6 address 2001:192:168:3::2/126
+    		no shutdown
+		ipv6 ospf 1 area 0
+		exit
+	ipv6 router ospf 1
+		router-id 4.4.4.4
+		end
+write		
+		
+
+---------------------------------------------------------------------------------
+
+Pour R5 :
+
+configure terminal
+	ipv6 unicast-routing
+	interface GigabitEthernet 1/0
+		ipv6 address 2001:192:168:3::1/126
+    		no shutdown
+		ipv6 ospf 1 area 0
+		exit
+	interface GigabitEthernet 2/0
+		ipv6 address 2001:192:168:4::1/126
+    		no shutdown
+		ipv6 ospf 1 area 0
+		exit
+	ipv6 router ospf 1
+		router-id 5.5.5.5
+		end
+write	
+
+
+---------------------------------------------------------------------------------
+
+Pour R6 :
+
+configure terminal
+	ipv6 unicast-routing
+	interface GigabitEthernet 2/0
+		ipv6 address 2001:192:168:4::2/126
+    		no shutdown
+		ipv6 ospf 1 area 0
+		exit
+	ipv6 router ospf 1
+		router-id 6.6.6.6
+		end
+write		
+
+
+
+
+***************************	eBGP	**************************
+
+
+Pour R1 : 
+
+configure terminal
+	router bgp 123
+		no bgp default ipv4-unicast
+		bgp router 1.1.1.1
+		end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R2 :
+
+configure terminal
+	router bgp 123
+		no bgp default ipv4-unicast
+		bgp router 2.2.2.2
+		end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R5 :
+
+configure terminal
+	router bgp 456
+		no bgp default ipv4-unicast
+		bgp router 5.5.5.5
+		end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R6 :
+
+configure terminal
+	router bgp 456
+		no bgp default ipv4-unicast
+		bgp router 6.6.6.6
+		end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R3 : 
+
+configure terminal
+	interface GigabitEthernet 3/0
+		ipv6 address 2001:192:168:10::1/126
+		no shutdown
+		exit
+	router bgp 123
+		no bgp default ipv4-unicast
+		bgp router 3.3.3.3
+
+// CONFIGURER L'@ DES NEIGHBORS AVANT DE PROCÉDER À LA SUITE
+
+		neighbor 2001:192:168:10::2 remote-as 456
+		address-family ipv6 unicast
+			neighbor 2001:192:168:10::2 activate
+			network 2001:192:168:10::/126
+			network 2001:192:168:1::/126
+  			network 2001:192:168:2::/126
+			end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R4 :
+
+configure terminal
+	interface GigabitEthernet 3/0
+		ipv6 address 2001:192:168:10::2/126
+		no shutdown
+		exit
+	router bgp 456
+		no bgp default ipv4-unicast
+		bgp router 4.4.4.4
+
+// CONFIGURER L'@ DES NEIGHBORS AVANT DE PROCÉDER À LA SUITE
+
+		neighbor 2001:192:168:10::1 remote-as 123
+		address-family ipv6 unicast
+			neighbor 2001:192:168:10::1 activate
+			network 2001:192:168:10::/126
+			network 2001:192:168:3::/126
+  			network 2001:192:168:4::/126
+			end
+write
+
+
+
+
+***************************	iBGP	**************************
+
+
+Pour R3 :
+
+configure terminal
+	interface loopback 0
+		ipv6 enable
+		ipv6 address 2001:192:168:300::1/126
+		ipv6 rip RIPNG enable 
+		exit
+
+// CONFIGURER L'@ DES NEIGHBORS SUR LEUR INTERFACE LOOPBACK AVANT DE PROCÉDER À LA SUITE
+	
+	router bgp 123
+		neighbor 2001:192:168:100::1 remote-as 123		
+		neighbor 2001:192:168:100::1 update-source loopback 0
+		neighbor 2001:192:168:200::1 remote-as 123		
+		neighbor 2001:192:168:200::1 update-source loopback 0
+		address-family ipv6 unicast
+			neighbor 2001:192:168:100::1 activate
+			neighbor 2001:192:168:200::1 activate
+			end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R4 :
+
+configure terminal
+	interface loopback 0
+		ipv6 enable
+		ipv6 address 2001:192:168:400::1/126
+ 		ipv6 ospf 1 area 0
+		exit
+
+// CONFIGURER L'@ DES NEIGHBORS SUR LEUR INTERFACE LOOPBACK AVANT DE PROCÉDER À LA SUITE
+
+	router bgp 456
+		neighbor 2001:192:168:500::1 remote-as 456
+		neighbor 2001:192:168:500::1 update-source loopback 0
+		neighbor 2001:192:168:600::1 remote-as 456
+		neighbor 2001:192:168:600::1 update-source loopback 0
+		address-family ipv6 unicast
+			neighbor 2001:192:168:500::1 activate
+			neighbor 2001:192:168:600::1 activate
+			end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R1 :
+
+configure terminal
+	interface loopback 0
+		ipv6 enable
+		ipv6 address 2001:192:168:100::1/126
+		ipv6 rip RIPNG enable 
+		exit
+
+// CONFIGURER L'@ DU NEIGHBOR SUR SON INTERFACE LOOPBACK AVANT DE PROCÉDER À LA SUITE
+
+	router bgp 123
+		neighbor 2001:192:168:300::1 remote-as 123
+		neighbor 2001:192:168:300::1 update-source loopback 0
+		address-family ipv6 unicast
+			neighbor 2001:192:168:300::1 activate
+			end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R2 :
+
+configure terminal
+	interface loopback 0
+		ipv6 enable
+		ipv6 address 2001:192:168:200::1/126
+		ipv6 rip RIPNG enable 
+		exit
+
+// CONFIGURER L'@ DU NEIGHBOR SUR SON INTERFACE LOOPBACK AVANT DE PROCÉDER À LA SUITE
+
+	router bgp 123
+		neighbor 2001:192:168:300::1 remote-as 123
+		neighbor 2001:192:168:300::1 update-source loopback 0
+		address-family ipv6 unicast
+			neighbor 2001:192:168:300::1 activate
+			end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R6 :
+
+configure terminal
+	interface loopback 0
+		ipv6 enable
+		ipv6 address 2001:192:168:600::1/126
+		ipv6 ospf 1 area 0
+		exit
+
+// CONFIGURER L'@ DU NEIGHBOR SUR SON INTERFACE LOOPBACK AVANT DE PROCÉDER À LA SUITE
+	
+	router bgp 456
+		neighbor 2001:192:168:400::1 remote-as 456
+		neighbor 2001:192:168:400::1 update-source loopback 0
+		address-family ipv6 unicast
+			neighbor 2001:192:168:400::1 activate
+			end
+write
+
+
+---------------------------------------------------------------------------------
+
+Pour R5 :
+
+configure terminal
+	interface loopback 0
+		ipv6 enable
+		ipv6 address 2001:192:168:500::1/126
+		ipv6 ospf 1 area 0
+		exit
+
+// CONFIGURER L'@ DU NEIGHBOR SUR SON INTERFACE LOOPBACK AVANT DE PROCÉDER À LA SUITE
+
+	router bgp 456
+		neighbor 2001:192:168:400::1 remote-as 456
+		neighbor 2001:192:168:400::1 update-source loopback 0
+		address-family ipv6 unicast
+			neighbor 2001:192:168:400::1 activate
+			end
+write
