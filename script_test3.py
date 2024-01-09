@@ -106,7 +106,7 @@ def configure_RIP(host, port, interfaces):
     time.sleep(timer)
     tn.write(b"configure terminal\r\n")
     time.sleep(timer)
-    tn.write(b"ipv6 router rip RIPng\r\n")
+    tn.write(b"ipv6 router rip ripng\r\n")
     time.sleep(timer)
     tn.write(b"redistribute connected\r\n")
     time.sleep(timer)
@@ -116,7 +116,7 @@ def configure_RIP(host, port, interfaces):
         if interface["border_if"] == 0:
             tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
             time.sleep(timer)
-            tn.write(b"ipv6 rip RIPng enable\r\n")
+            tn.write(b"ipv6 rip ripng enable\r\n")
             time.sleep(timer)
             tn.write(b"exit\r\n")
             time.sleep(timer)
@@ -257,18 +257,30 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area):
 #-----------Appel aux fonctions------------
 
 #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
-    
+threads_reset = []   
 
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
-        threading.Thread(target=reset_router, args=(host, router_data['port'])).start()
-time.sleep(60)    
+        preset = threading.Thread(target=reset_router, args=(host, router_data['port']))
+        preset.start()
+        threads_reset.append(preset)
 
+for thread in threads_reset: 
+    thread.join()
+
+time.sleep(60)
+
+
+threads_config = []
 #paralelisation pour configurer chaque routeur
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
-        threading.Thread(target=configure_router, args=(host, router_data['port'], router_data['interfaces'])).start()
-time.sleep(100) 
+        pconfig= threading.Thread(target=configure_router, args=(host, router_data['port'], router_data['interfaces']))
+        pconfig.start()
+        threads_config.append(pconfig)
+for thread in threads_config: 
+    thread.join()
+
       
 #Appel aux fonctions de configuration des protocoles de routage
 for AS in data['autonomous_systems']:
@@ -278,7 +290,8 @@ for AS in data['autonomous_systems']:
         for router_name, router_info in AS['routers'].items():
             port = router_info['port']
             interfaces = router_info['interfaces']
-            threading.Thread(target=configure_RIP,args=(host, port, interfaces)).start()
+            pRIP = threading.Thread(target=configure_RIP,args=(host, port, interfaces))
+            pRIP.start()
     # Regarde si le protocol de l'AS est OSPF
     elif AS['protocol'] == "OSPF":
         for router_name, router_info in AS['routers'].items():
@@ -286,6 +299,10 @@ for AS in data['autonomous_systems']:
             router_id = router_info['router_id']
             interfaces = router_info['interfaces']
             threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
+            
+            pOSPF = threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
+            pOSPF.start()
+            
     time.sleep(100)
 
 for AS in data['autonomous_systems'] :
@@ -300,3 +317,5 @@ for AS in data['autonomous_systems'] :
             interface += 1
         area = router_info['interfaces'][interface]['area']    
         threading.Thread(target=configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area)).start()
+            
+            
