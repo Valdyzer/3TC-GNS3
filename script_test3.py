@@ -62,7 +62,7 @@ def reset_router(host, port):
     time.sleep(timer)
     tn.write(b"reload\r\n") #reload le routeur pour bien appliquer les changements et que la config soit bien effacée
     time.sleep(timer)
-    tn.write(b"\n")  #Confirmation du "reload"
+    tn.write(b"\r\n")  #Confirmation du "reload"
     time.sleep(timer)
     
 def configure_router(host, port, interfaces):
