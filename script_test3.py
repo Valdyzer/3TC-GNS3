@@ -53,7 +53,7 @@ for link in data['links']:
 def reset_router(host, port):
     # Connection à Telnet
     tn = telnetlib.Telnet(host, port)
-    timer = 5
+    timer = 2
     # Reset la config du routeur
     tn.write(b"\r\n")
     time.sleep(timer)
@@ -67,7 +67,7 @@ def reset_router(host, port):
 def configure_router(host, port, interfaces):
     # Connection à Telnet
     tn = telnetlib.Telnet(host, port)
-    timer = 5
+    timer = 2
     tn.write(b"\r\n")
     time.sleep(timer)
     tn.write(b"enable\r\n")
@@ -91,7 +91,7 @@ def configure_router(host, port, interfaces):
         time.sleep(timer)
 
     tn.write(b"end\r\n")
-    time.sleep(time) 
+    time.sleep(timer) 
     tn.write(b"write\r\n")
     time.sleep(timer)
     tn.write(b"\r\n")
@@ -99,7 +99,7 @@ def configure_router(host, port, interfaces):
 
 def configure_RIP(host, port, interfaces):
     tn = telnetlib.Telnet(host, port)
-    timer = 5
+    timer = 2
     tn.write(b"\r\n")
     time.sleep(timer)
     tn.write(b"enable\r\n")
@@ -113,7 +113,7 @@ def configure_RIP(host, port, interfaces):
     tn.write(b"exit\r\n")
     time.sleep(timer)
     for interface in interfaces:
-        if not bool(interface["border_if"]):
+        if interface["border_if"] == 0:
             tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
             time.sleep(timer)
             tn.write(b"ipv6 rip RIPng enable\r\n")
@@ -127,9 +127,9 @@ def configure_RIP(host, port, interfaces):
     tn.write(b"\r\n")
     time.sleep(timer)
     
-def configure_OSPF(host, port, router_id, area, interfaces): 
+def configure_OSPF(host, port, router_id, interfaces): 
     tn = telnetlib.Telnet(host, port)
-    timer = 5
+    timer = 2
     tn.write(b"\r\n")
     time.sleep(timer)
     tn.write(b"enable\r\n")
@@ -139,7 +139,7 @@ def configure_OSPF(host, port, router_id, area, interfaces):
     for interface in interfaces:
         tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
         time.sleep(timer)
-        tn.write("ipv6 ospf 1 area {}\r\n".format(area).encode('ascii'))
+        tn.write("ipv6 ospf 1 area {}\r\n".format(interface["area"]).encode('ascii'))
         time.sleep(timer)
         tn.write(b"exit\r\n")
         time.sleep(timer)
@@ -148,7 +148,7 @@ def configure_OSPF(host, port, router_id, area, interfaces):
     tn.write("router-id {}\r\n".format(router_id).encode('ascii'))
     time.sleep(timer)
     for interface in interfaces: 
-        if bool(interface["border_if"]): 
+        if interface["border_if"] == 1: 
             tn.write("passive-interface {}\r\n".format(interface["interface_id"]).encode('ascii'))
             time.sleep(timer)
     tn.write(b"end\r\n")
@@ -258,23 +258,19 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol):
 
 #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
     
-"""
-je veux paraleliser ça comme j'ai fait pour la configuration de chaque routeur mais jsp si c'est mieux 
-de mettre les deux dans la même boucle for, faire une double boucle pour chaque cas ou une autre chose. 
-il faut faire attention à que la configuration ne commence avant d'avoir fini le "reset" de chaque routeur
-----À demander--- :) 
-"""
+
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
         threading.Thread(target=reset_router, args=(host, router_data['port'])).start()
-time.sleep(100)    
+time.sleep(60)    
 
 #paralelisation pour configurer chaque routeur
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
         threading.Thread(target=configure_router, args=(host, router_data['port'], router_data['interfaces'])).start()
-time.sleep(100)       
-#Appel à la fonction qui configure RIP, il faudra paralleliser ça aussi je crois
+time.sleep(100) 
+      
+#Appel à la fonction qui configure RIP
 for AS in data['autonomous_systems']:
     # Regarde si le routing protocol est RIP
     if AS['protocol'] == "RIP":
@@ -282,15 +278,13 @@ for AS in data['autonomous_systems']:
         for router_name, router_info in AS['routers'].items():
             port = router_info['port']
             interfaces = router_info['interfaces']
-            configure_RIP(host, port, interfaces)
-
-#Appel à la fonction configure_OSPF (il faudra paralleliser)
-for AS in data['autonomous_systems']:
+            threading.Thread(target=configure_RIP,args=(host, port, interfaces)).start()
     # Regarde si le protocol de l'AS est OSPF
-    if AS['protocol'] == "OSPF":
+    elif AS['protocol'] == "OSPF":
         for router_name, router_info in AS['routers'].items():
             port = router_info['port']
             router_id = router_info['router_id']
-            area = router_info['area']
             interfaces = router_info['interfaces']
-            configure_OSPF(host, port, router_id, area, interfaces)
+            print("appel OSPF")
+            threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
+    time.sleep(100)        
