@@ -200,10 +200,12 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks):
     tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"write\r\n")
-    time.sleep(timer)    
+    time.sleep(timer) 
+    tn.write(b"\r\n")  
+    time.sleep(timer) 
 
 
-def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors):
+def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol):
     tn = telnetlib.Telnet(host, port)
     timer = 5
     tn.write(b"\r\n")
@@ -214,8 +216,35 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors):
     time.sleep(timer)
     tn.write(b"ipv6 enable\r\n")
     time.sleep(timer)
-    tn.write("ipv6 address {}".format(ipv6_loopback).encode('ascii'))
-    pass
+    tn.write("ipv6 address {}\r\n".format(ipv6_loopback).encode('ascii'))
+    time.sleep(timer)
+    if protocol == "RIP" :
+        tn.write(b"ipv6 rip RIPng enable\r\n")
+    elif protocol == "OSPF" :
+        tn.write(b"ipv6 ospf 1 area 0\r\n")
+    time.sleep(timer)
+    tn.write(b"exit\r\n")
+    time.sleep(timer)
+    tn.write("router bgp {}".format(as_id).encode('ascii'))
+    time.sleep(timer)
+    for neighbor in neighbors :
+        tn.write("neighbor {} remote-as {}\r\n".format(neighbor, as_id).encode('ascii'))
+        time.sleep(timer)
+        tn.write("neighbor {} update-source loopback 0\r\n".format(neighbor).encode('ascii'))
+        time.sleep(timer)
+        tn.write(b"address-family ipv6 unicast\r\n")
+        time.sleep(timer)
+        tn.write("neighbor {} activate\r\n".format(neighbor).encode('ascii'))
+        time.sleep(timer)
+        tn.write(b"exit\r\n")
+        time.sleep(timer)
+    tn.write(b"end\r\n")
+    time.sleep(timer)
+    tn.write(b"write\r\n")
+    time.sleep(timer)
+    tn.write(b"\r\n")
+    time.sleep(timer)
+
 
 #-----------Appel aux fonctions------------
 

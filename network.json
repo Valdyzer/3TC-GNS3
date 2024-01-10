@@ -7,7 +7,7 @@
         "R1":{
           "router_id": "1.1.1.1",
           "port": 5000,
-          "BR": 1,
+          "BR": 0,
           "interfaces": [
             {"interface_id": "GigabitEthernet1/0", "link_to": "R2", "ip_address": "2001:192:168:1::1/126", "area": "0", "border_if": 0}
           ]
@@ -24,7 +24,7 @@
         "R3":{
             "router_id": "3.3.3.3",
             "port": 5002,
-            "BR": 0,
+            "BR": 1,
             "interfaces": [
               {"interface_id": "GigabitEthernet2/0", "link_to": "R2", "ip_address":"2001:192:168:2::2/126", "area": "0", "border_if": 0},
               {"interface_id": "GigabitEthernet3/0", "link_to": "R4", "ip_address": "2001:192:168:10::1/126", "area": "0", "border_if": 1}
