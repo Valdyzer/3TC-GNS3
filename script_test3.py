@@ -106,7 +106,7 @@ def configure_RIP(host, port, interfaces):
     time.sleep(timer)
     tn.write(b"configure terminal\r\n")
     time.sleep(timer)
-    tn.write(b"ipv6 router rip RIPng\r\n")
+    tn.write(b"ipv6 router rip ripng\r\n")
     time.sleep(timer)
     tn.write(b"redistribute connected\r\n")
     time.sleep(timer)
@@ -116,7 +116,7 @@ def configure_RIP(host, port, interfaces):
         if interface["border_if"] == 0:
             tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
             time.sleep(timer)
-            tn.write(b"ipv6 rip RIPng enable\r\n")
+            tn.write(b"ipv6 rip ripng enable\r\n")
             time.sleep(timer)
             tn.write(b"exit\r\n")
             time.sleep(timer)
