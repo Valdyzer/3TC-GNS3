@@ -213,7 +213,7 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks):
     time.sleep(timer) 
 
 
-def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol):
+def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area):
     tn = telnetlib.Telnet(host, port)
     timer = 5
     tn.write(b"\r\n")
@@ -229,7 +229,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol):
     if protocol == "RIP" :
         tn.write(b"ipv6 rip RIPng enable\r\n")
     elif protocol == "OSPF" :
-        tn.write(b"ipv6 ospf 1 area 0\r\n")
+        tn.write("ipv6 ospf 1 area {}\r\n".format(area).encode('ascii'))
     time.sleep(timer)
     tn.write(b"exit\r\n")
     time.sleep(timer)
