@@ -56,8 +56,6 @@ def reset_router(host, port):
     timer = 5
     # Reset la config du routeur
     tn.write(b"\r\n")
-    time.sleep(timer)
-    tn.write(b"end\r\n")
     timer.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
@@ -75,8 +73,6 @@ def configure_router(host, port, interfaces):
     # Configuration des interfaces
     for interface in interfaces:
         tn.write(b"\r\n")
-        time.sleep(timer)
-        tn.write(b"end\r\n")
         time.sleep(timer)
         tn.write(b"enable\r\n")
         time.sleep(timer)
@@ -103,8 +99,6 @@ def configure_RIP(host, port, interfaces):
     timer = 5
     tn.write(b"\r\n")
     time.sleep(timer)
-    tn.write(b"end\r\n")
-    time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
     tn.write(b"configure terminal\r\n")
@@ -119,22 +113,18 @@ def configure_RIP(host, port, interfaces):
         if not bool(interface["border_if"]):
             tn.write("interface {}\r\n".format(interface['interface_id']).encode('ascii'))
             time.sleep(timer)
-            tn.write(b"ipv6 rip RIPNG enable\r\n")
+            tn.write(b"ipv6 rip RIPng enable\r\n")
             time.sleep(timer)
             tn.write(b"exit\r\n")
             time.sleep(timer)
-    #cris: on doit voir comment on fait pour les routers de bordure parce que pour l'interface qui va vers l'exterieur on ne doit pas configurer ce protocol
-    #on peut voir si le router auquel il est connecté appartient au même AS ou pas, comme ça on sait si on veut configurer un protocol interne ou pas
-    #on doit mettre un if dans le "for" ou bien quand on appelle la fonction pour ne donner que les interfaces qui nous interessent
     tn.write(b"end\r\n")
-#on rajoute tn.write(b"write\r\n") ou pas nécessaire? 
+    time.sleep(timer)
+    tn.write(b"write\r\n")
     
 def configure_OSPF(host, port, router_id, area, interfaces): 
     tn = telnetlib.Telnet(host, port)
     timer = 5
     tn.write(b"\r\n")
-    time.sleep(timer)
-    tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
@@ -165,8 +155,6 @@ def configure_eBGP(host, port, as_id, router_id):
     timer = 5
     tn.write(b"\r\n")
     time.sleep(timer)
-    tn.write(b"end\r\n")
-    time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
     tn.write(b"configure terminal\r\n")
@@ -186,8 +174,6 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks):
     tn = telnetlib.Telnet(host, port)
     timer = 5
     tn.write(b"\r\n")
-    time.sleep(timer)
-    tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
@@ -220,8 +206,6 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors):
     timer = 5
     tn.write(b"\r\n")
     time.sleep(timer)
-    tn.write(b"end\r\n")
-    time.sleep(timer)
     tn.write(b"configure terminal\r\n")
     time.sleep(timer)
     tn.write(b"interface loopback 0\r\n")
@@ -241,13 +225,16 @@ de mettre les deux dans la même boucle for, faire une double boucle pour chaque
 il faut faire attention à que la configuration ne commence avant d'avoir fini le "reset" de chaque routeur
 ----À demander--- :) 
 """
-    
+for autonomous_system in data['autonomous_systems']:
+    for router_name, router_data in autonomous_system['routers'].items():
+        threading.Thread(target=reset_router, args=(host, router_data['port'])).start()
+time.sleep(100)    
 
 #paralelisation pour configurer chaque routeur
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
         threading.Thread(target=configure_router, args=(host, router_data['port'], router_data['interfaces'])).start()
-        
+time.sleep(100)       
 #Appel à la fonction qui configure RIP, il faudra paralleliser ça aussi je crois
 for AS in data['autonomous_systems']:
     # Regarde si le routing protocol est RIP
