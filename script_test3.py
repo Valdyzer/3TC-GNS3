@@ -257,20 +257,30 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area):
 #-----------Appel aux fonctions------------
 
 #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
-    
+threads_reset = []   
 
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
         preset = threading.Thread(target=reset_router, args=(host, router_data['port']))
         preset.start()
-        preset.join()
+        threads_reset.append(preset)
 
+for thread in threads_reset: 
+    thread.join()
+
+time.sleep(60)
+
+
+threads_config = []
 #paralelisation pour configurer chaque routeur
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
         pconfig= threading.Thread(target=configure_router, args=(host, router_data['port'], router_data['interfaces']))
         pconfig.start()
-        pconfig.join()
+        threads_config.append(pconfig)
+for thread in threads_config: 
+    thread.join()
+
       
 #Appel à la fonction qui configure RIP
 for AS in data['autonomous_systems']:

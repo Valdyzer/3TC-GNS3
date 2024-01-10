@@ -84,7 +84,10 @@
           "BR": 0,
           "interfaces": [
             {"interface_id": "GigabitEthernet2/0", "link_to": "R5", "ip_address":"2001:192:168:4::2/126", "border_if": 0}
-          ]
+          ],
+          "iBGP": {
+            "ipv6 loopback": "2001:192:168:600::1/126", "neighbors": ["2001:192:168:400::1", "2001:192:168:500::1"]
+          }
         }
       }
     }
