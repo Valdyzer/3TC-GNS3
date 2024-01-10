@@ -282,7 +282,7 @@ for thread in threads_config:
     thread.join()
 
       
-#Appel à la fonction qui configure RIP
+#Appel aux fonctions de configuration des protocoles de routage
 for AS in data['autonomous_systems']:
     # Regarde si le routing protocol est RIP
     if AS['protocol'] == "RIP":
@@ -298,6 +298,24 @@ for AS in data['autonomous_systems']:
             port = router_info['port']
             router_id = router_info['router_id']
             interfaces = router_info['interfaces']
-            print("appel OSPF")
+            threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
+            
             pOSPF = threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
             pOSPF.start()
+            
+    time.sleep(100)
+
+for AS in data['autonomous_systems'] :
+    for router_info in AS["routers"].values :
+        port = router_info['port']
+        as_id = AS['as_id']
+        ipv6 = router_info['iBGP']['ipv6_loopback']
+        neighbors = router_info['iBGP']['neighbors']
+        protocol = AS['protocol']
+        interface = 0
+        while router_info['interfaces'][interface]['border_if'] != 0 :
+            interface += 1
+        area = router_info['interfaces'][interface]['area']    
+        threading.Thread(target=configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area)).start()
+            
+            
