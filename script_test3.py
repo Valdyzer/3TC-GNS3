@@ -261,14 +261,16 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area):
 
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
-        threading.Thread(target=reset_router, args=(host, router_data['port'])).start()
-time.sleep(60)    
+        preset = threading.Thread(target=reset_router, args=(host, router_data['port']))
+        preset.start()
+        preset.join()
 
 #paralelisation pour configurer chaque routeur
 for autonomous_system in data['autonomous_systems']:
     for router_name, router_data in autonomous_system['routers'].items():
-        threading.Thread(target=configure_router, args=(host, router_data['port'], router_data['interfaces'])).start()
-time.sleep(100) 
+        pconfig= threading.Thread(target=configure_router, args=(host, router_data['port'], router_data['interfaces']))
+        pconfig.start()
+        pconfig.join()
       
 #Appel à la fonction qui configure RIP
 for AS in data['autonomous_systems']:
@@ -278,7 +280,8 @@ for AS in data['autonomous_systems']:
         for router_name, router_info in AS['routers'].items():
             port = router_info['port']
             interfaces = router_info['interfaces']
-            threading.Thread(target=configure_RIP,args=(host, port, interfaces)).start()
+            pRIP = threading.Thread(target=configure_RIP,args=(host, port, interfaces))
+            pRIP.start()
     # Regarde si le protocol de l'AS est OSPF
     elif AS['protocol'] == "OSPF":
         for router_name, router_info in AS['routers'].items():
@@ -286,5 +289,5 @@ for AS in data['autonomous_systems']:
             router_id = router_info['router_id']
             interfaces = router_info['interfaces']
             print("appel OSPF")
-            threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
-    time.sleep(100)        
+            pOSPF = threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
+            pOSPF.start()
