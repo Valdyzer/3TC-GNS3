@@ -56,10 +56,12 @@ def reset_router(host, port):
     timer = 5
     # Reset la config du routeur
     tn.write(b"\r\n")
-    timer.sleep(timer)
+    time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
     tn.write(b"write erase\r\n") #efface toute la config du routeur
+    time.sleep(timer)
+    tn.write(b"\r\n")  #Confirmation du "erase"
     time.sleep(timer)
     tn.write(b"reload\r\n") #reload le routeur pour bien appliquer les changements et que la config soit bien effacée
     time.sleep(timer)
