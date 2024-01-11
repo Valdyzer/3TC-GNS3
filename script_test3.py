@@ -317,5 +317,7 @@ for AS in data['autonomous_systems'] :
             interface += 1
         area = router_info['interfaces'][interface]['area']    
         threading.Thread(target=configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area)).start()
+        threading.Thread(target=configure_eBGP, args=(host, port, as_id, router_id)).start()
+
             
             
