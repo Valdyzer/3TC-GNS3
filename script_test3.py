@@ -141,6 +141,8 @@ def configure_OSPF(host, port, router_id, interfaces):
         time.sleep(timer)
         tn.write("ipv6 ospf 1 area {}\r\n".format(interface["area"]).encode('ascii'))
         time.sleep(timer)
+        tn.write("ipv6 ospf cost {}\r\n".format(interface["cost"]).encode('ascii'))
+        time.sleep(timer)
         tn.write(b"exit\r\n")
         time.sleep(timer)
     tn.write(b"ipv6 router ospf 1\r\n")
