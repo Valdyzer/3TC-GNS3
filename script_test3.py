@@ -283,7 +283,7 @@ for autonomous_system in data['autonomous_systems']:
 for thread in threads_config: 
     thread.join()
 
-      
+threads_IGP = []     
 #Appel aux fonctions de configuration des protocoles de routage
 for AS in data['autonomous_systems']:
     # Regarde si le routing protocol est RIP
@@ -294,6 +294,7 @@ for AS in data['autonomous_systems']:
             interfaces = router_info['interfaces']
             pRIP = threading.Thread(target=configure_RIP,args=(host, port, interfaces))
             pRIP.start()
+            threads_IGP.append(pRIP)
     # Regarde si le protocol de l'AS est OSPF
     elif AS['protocol'] == "OSPF":
         for router_name, router_info in AS['routers'].items():
@@ -304,9 +305,12 @@ for AS in data['autonomous_systems']:
             
             pOSPF = threading.Thread(target=configure_OSPF, args=(host, port, router_id, interfaces))
             pOSPF.start()
+            threads_IGP.append(pOSPF)
             
-    time.sleep(100)
+for thread in threads_IGP:
+    thread.join()
 
+threads_iBGP = []
 for AS in data['autonomous_systems'] :
     for router_info in AS["routers"].values :
         port = router_info['port']
@@ -318,19 +322,25 @@ for AS in data['autonomous_systems'] :
         while router_info['interfaces'][interface]['border_if'] != 0 :
             interface += 1
         area = router_info['interfaces'][interface]['area']    
-        threading.Thread(target=configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area)).start()
+        t_iBGP = threading.Thread(target=configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area))
+        t_iBGP.start()
+        threads_iBGP.append(t_iBGP)
+for thread in threads_iBGP:
+    thread.join()
 
-for AS in data['autonomous_systems'] :
-    for router_info in AS["routers"].values :
+
+for AS in data['autonomous_systems']:
+    for router_info in AS["routers"].values:
         port = router_info['port']
         as_id = AS['as_id']
         router_id = router_info['router_id']
-        threading.Thread(target=configure_eBGP, args=(host, port, as_id, router_id)).start()            
-            
-for AS in data['autonomous_systems'] :
-    for router_info in AS["routers"].values :
-        port = router_info['port']
-        as_id = AS['as_id']
-        neighbors = router_info['eBGP']['neighbors']
-        networks = router_info['networks']
-        threading.Thread(target=configure_eBGP, args=(host, port, as_id, neighbors, networks)).start()            
+        t_eBGP = threading.Thread(target=configure_eBGP, args=(host, port, as_id, router_id))
+        t_eBGP.start()
+        t_eBGP.join()  
+
+        if router_info["BR"]==1: 
+            neighbors = router_info['eBGP']['neighbors']
+            networks = router_info['networks']
+            t_eBGP_BR = threading.Thread(target=configure_eBGP_BR, args=(host, port, as_id, neighbors, networks))
+            t_eBGP_BR.start()
+          
