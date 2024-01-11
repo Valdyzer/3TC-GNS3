@@ -12,7 +12,7 @@ def lect() :
         data = json.load(file)
 
     # Connect to GNS3 server
-    gns3_server = Gns3Connector("http://127.0.0.1:3080")
+    gns3_server = Gns3Connector("http://localhost:3080")
 
     # Se connecter au projet
     project = Project(name="PGNS3", connector=gns3_server)
