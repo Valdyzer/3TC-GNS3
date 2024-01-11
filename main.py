@@ -5,8 +5,8 @@ import time
 
 if __name__ == '__main__' :
 
-    data = lect()
-    host = 'localhost'
+    data = lect('network.json')
+    host = "127.0.0.1"
 
     #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
     threads_reset = []   
