@@ -1,3 +1,31 @@
+<<<<<<< HEAD
+{
+    "auto_close": true,
+    "auto_open": false,
+    "auto_start": false,
+    "drawing_grid_size": 25,
+    "grid_size": 75,
+    "name": "Empty_project",
+    "project_id": "fd147bf9-3da4-4cd9-a5ac-79c91274cf4f",
+    "revision": 9,
+    "scene_height": 1000,
+    "scene_width": 2000,
+    "show_grid": false,
+    "show_interface_labels": false,
+    "show_layers": false,
+    "snap_to_grid": false,
+    "supplier": null,
+    "topology": {
+        "computes": [],
+        "drawings": [],
+        "links": [],
+        "nodes": []
+    },
+    "type": "topology",
+    "variables": null,
+    "version": "2.2.40.1",
+    "zoom": 100
+=======
 {
     "auto_close": true,
     "auto_open": false,
@@ -600,4 +628,5 @@
     "variables": null,
     "version": "2.2.44.1",
     "zoom": 50
+>>>>>>> 62f0b3b2b63e7f641b3509a6099ed7c9fff0e87e
 }
