@@ -322,10 +322,13 @@ for AS in data['autonomous_systems'] :
     for router_info in AS["routers"].values :
         port = router_info['port']
         as_id = AS['as_id']
-        neighbors = router_info['eBGP']['neighbors']
-        interface = 0
-        while router_info['interfaces'][interface]['border_if'] != 0 :
-            interface += 1
-        area = router_info['interfaces'][interface]['area']    
+        router_id = router_info['router_id']
         threading.Thread(target=configure_eBGP, args=(host, port, as_id, router_id)).start()            
             
+for AS in data['autonomous_systems'] :
+    for router_info in AS["routers"].values :
+        port = router_info['port']
+        as_id = AS['as_id']
+        neighbors = router_info['eBGP']['neighbors']
+        networks = router_info['networks']
+        threading.Thread(target=configure_eBGP, args=(host, port, as_id, neighbors, networks)).start()            
