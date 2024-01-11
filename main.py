@@ -41,7 +41,7 @@ if __name__ == '__main__' :
         # Regarde si le routing protocol est RIP
         if AS['protocol'] == "RIP":
             # Iteration pour chaque routeur dans l'AS
-            for router_name, router_info in AS['routers'].items():
+            for router_info in AS['routers'].values():
                 port = router_info['port']
                 interfaces = router_info['interfaces']
                 pRIP = threading.Thread(target=fct.configure_RIP,args=(host, port, interfaces))
@@ -49,7 +49,7 @@ if __name__ == '__main__' :
                 threads_IGP.append(pRIP)
         # Regarde si le protocol de l'AS est OSPF
         elif AS['protocol'] == "OSPF":
-            for router_name, router_info in AS['routers'].items():
+            for router_info in AS['routers'].values():
                 port = router_info['port']
                 router_id = router_info['router_id']
                 interfaces = router_info['interfaces']
@@ -66,16 +66,17 @@ if __name__ == '__main__' :
     #Configuration iBGP de tous les routeurs
     threads_iBGP = []
     for AS in data['autonomous_systems'] :
-        for router_info in AS["routers"].values :
+        for router_info in AS["routers"].values() :
             port = router_info['port']
             as_id = AS['as_id']
-            ipv6 = router_info['iBGP']['ipv6_loopback']
+            ipv6 = router_info['iBGP']['ipv6 loopback']
             neighbors = router_info['iBGP']['neighbors']
             protocol = AS['protocol']
             area = router_info['interfaces'][0]['area']    
             t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area))
             t_iBGP.start()
             threads_iBGP.append(t_iBGP)
+            print("thread pour iBGP")
     for thread in threads_iBGP:
         thread.join()
 
