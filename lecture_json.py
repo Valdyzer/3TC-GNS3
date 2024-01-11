@@ -16,11 +16,9 @@ def lect(dict) :
 def initialisation(data):
     # Connect to GNS3 server
     gns3_server = Gns3Connector("http://127.0.0.1:3080")
-
     # Se connecter au projet
     project = Project(name="PGNS3", connector=gns3_server)
     project.get()
-
     # Crea instancias de routers utilizando la información del JSON
     for AS in data['autonomous_systems']:
         for router in AS['routers']:

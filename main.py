@@ -21,6 +21,7 @@ if __name__ == '__main__' :
     for thread in threads_reset: 
         thread.join()
 
+    print('Va reload stp')
     time.sleep(60)
 
 
