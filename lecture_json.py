@@ -13,6 +13,15 @@ def lect(dict) :
 
     return(data)
 
+def adressage(networks):
+    for network, routers in networks.items():
+        base = network.split('::')[0]
+        for i, router in enumerate(routers.keys()):
+                print(i, router)
+                routers[router] = base + f'::{i+1}'
+    
+    return networks
+
 def initialisation(data):
     # Connect to GNS3 server
     gns3_server = Gns3Connector("http://127.0.0.1:3080")

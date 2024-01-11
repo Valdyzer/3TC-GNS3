@@ -1,22 +1,14 @@
-import json
-import os
 from lecture_json import lect
 
-
-
-data = lect('adressage.json')
-
-print(data)   
+data = lect("adressage.json")
 
 def adressage(networks):
     for network, routers in networks.items():
         base = network.split('::')[0]
-        for router, _ in routers.items():
-            if router.endswith('1'):
-                routers[router] = base + '::1'
-            elif router.endswith('2'):
-                routers[router] = base + '::2'
+        for i, router in enumerate(routers.keys()):
+                print(i, router)
+                routers[router] = base + f'::{i+1}'
+    
     return networks
-
 
 print(adressage(data))
