@@ -72,10 +72,7 @@ if __name__ == '__main__' :
             ipv6 = router_info['iBGP']['ipv6_loopback']
             neighbors = router_info['iBGP']['neighbors']
             protocol = AS['protocol']
-            interface = 0
-            while router_info['interfaces'][interface]['border_if'] != 0 :
-                interface += 1
-            area = router_info['interfaces'][interface]['area']    
+            area = router_info['interfaces'][0]['area']    
             t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area))
             t_iBGP.start()
             threads_iBGP.append(t_iBGP)
