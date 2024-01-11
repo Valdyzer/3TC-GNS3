@@ -9,7 +9,7 @@
           "port": 5000,
           "BR": 0,
           "interfaces": [
-            {"interface_id": "GigabitEthernet1/0", "link_to": "R2", "ip_address": "2001:192:168:1::1/126", "area": "0", "border_if": 0, "cost": "1000"}
+            {"interface_id": "GigabitEthernet1/0", "link_to": "R2", "ip_address": "2001:192:168:1::1/126", "area": "0", "border_if": 0, "cost": "100"}
           ],
           "iBGP": {
             "ipv6 loopback": "2001:192:168:100::1/126", "neighbors": ["2001:192:168:200::1", "2001:192:168:300::1"]
@@ -20,8 +20,8 @@
           "port": 5001,
           "BR": 0,
           "interfaces": [
-            {"interface_id": "GigabitEthernet1/0", "link_to": "R1", "ip_address":"2001:192:168:1::2/126", "area": "0", "border_if":0},
-            {"interface_id": "GigabitEthernet2/0", "link_to": "R3", "ip_address":"2001:192:168:2::1/126", "area": "0", "border_if": 0}
+            {"interface_id": "GigabitEthernet1/0", "link_to": "R1", "ip_address":"2001:192:168:1::2/126", "area": "0", "border_if":0, "cost": "50"},
+            {"interface_id": "GigabitEthernet2/0", "link_to": "R3", "ip_address":"2001:192:168:2::1/126", "area": "0", "border_if":0, "cost": "100"}
           ],
           "iBGP": {
             "ipv6 loopback": "2001:192:168:200::1/126", "neighbors": ["2001:192:168:100::1", "2001:192:168:300::1"]
@@ -32,8 +32,8 @@
             "port": 5002,
             "BR": 1,
             "interfaces": [
-              {"interface_id": "GigabitEthernet2/0", "link_to": "R2", "ip_address":"2001:192:168:2::2/126", "area": "0", "border_if": 0},
-              {"interface_id": "GigabitEthernet3/0", "link_to": "R4", "ip_address": "2001:192:168:10::1/126", "area": "0", "border_if": 1}
+              {"interface_id": "GigabitEthernet2/0", "link_to": "R2", "ip_address":"2001:192:168:2::2/126", "area": "0", "border_if": 0, "cost": "50"},
+              {"interface_id": "GigabitEthernet3/0", "link_to": "R4", "ip_address": "2001:192:168:10::1/126", "area": "0", "border_if": 1, "cost": "100"}
             ], 
             "eBGP": {"neighbors": [
               {"ipv6": "2001:192:168:10::2", "as_id": "2"}
