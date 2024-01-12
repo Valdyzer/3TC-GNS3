@@ -11,8 +11,11 @@ def lect(dict) :
         # Carga los datos JSON desde el archivo
         data = json.load(file)
 
+    return(data)
+
+def initialisation(data):
     # Connect to GNS3 server
-    gns3_server = Gns3Connector("http://localhost:3080")
+    gns3_server = Gns3Connector("http://127.0.0.1:3080")
 
     # Se connecter au projet
     project = Project(name="PGNS3", connector=gns3_server)
@@ -45,5 +48,4 @@ def lect(dict) :
             i +=1 
 
         link = Link(project_id=project.project_id, nodes=[node_a, node_b], node_interfaces=[interface_a,interface_b], link_type="ethernet")
-
-    return(data)    
+  

@@ -1,4 +1,4 @@
-from lecture_json import lect
+from lecture_json import lect, initialisation
 import fonctions as fct
 import threading 
 import time
@@ -7,6 +7,7 @@ if __name__ == '__main__' :
 
     data = lect('network.json')
     host = "127.0.0.1"
+    initialisation(data)
 
     #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
     threads_reset = []   
