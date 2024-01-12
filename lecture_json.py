@@ -2,9 +2,9 @@ from gns3fy import Gns3Connector, Project, Node, Link
 import json
 import os
 
-def lect() :
+def lect(dict) :
     # path pour le fichier json
-    json_file = os.path.join(os.path.dirname(__file__), 'network.json')
+    json_file = os.path.join(os.path.dirname(__file__), dict)
     
     # Ouvre le fichier JSON
     with open(json_file, 'r') as file:
