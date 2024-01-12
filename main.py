@@ -36,7 +36,7 @@ if __name__ == '__main__' :
         thread.join()
 
     threads_IGP = []     
-    #Appel aux fonctions de configuration des protocoles de routage
+    #Appel aux fonctions de configuration des protocoles de routage RIP et OSPF
     for AS in data['autonomous_systems']:
         # Regarde si le routing protocol est RIP
         if AS['protocol'] == "RIP":
@@ -62,6 +62,8 @@ if __name__ == '__main__' :
     for thread in threads_IGP:
         thread.join()
 
+
+    #Configuration iBGP de tous les routeurs
     threads_iBGP = []
     for AS in data['autonomous_systems'] :
         for router_info in AS["routers"].values() :
@@ -81,7 +83,7 @@ if __name__ == '__main__' :
     for thread in threads_iBGP:
         thread.join()
 
-
+    #Configuration eBGP des routeurs de bordure 
     for AS in data['autonomous_systems']:
         for router_info in AS["routers"].values:
             port = router_info['port']
