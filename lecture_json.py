@@ -56,6 +56,7 @@ def data_eBGP(data):
         for router_info in AS['routers'].values():
             for interface in router_info["interfaces"]:
                 if interface["border_if"] == 1:
+                    router_name = interface["link_to"]
                     router_info["eBGP"] = {}
                     router_info["eBGP"]["neighbors"] = [] #liste de dictionnaires
                     router_info["eBGP"]["networks"] = [] #liste de strings

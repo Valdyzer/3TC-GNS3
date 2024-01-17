@@ -76,10 +76,10 @@ if __name__ == '__main__' :
             t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area))
             t_iBGP.start()
             threads_iBGP.append(t_iBGP)
-            print("thread pour iBGP")
     for thread in threads_iBGP:
         thread.join()
 
+    threads_eBGP = []
     #Configuration eBGP des routeurs de bordure 
     for AS in data['autonomous_systems']:
         for router_info in AS["routers"].values():
@@ -92,6 +92,12 @@ if __name__ == '__main__' :
 
             if router_info["BR"]==1: 
                 neighbors = router_info['eBGP']['neighbors']
-                networks = router_info['networks']
+                networks = router_info["eBGP"]['networks']
                 t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks))
                 t_eBGP_BR.start()
+                threads_eBGP.append(t_eBGP_BR)
+    for thread in threads_eBGP: 
+        thread.join()            
+
+
+print("fin")

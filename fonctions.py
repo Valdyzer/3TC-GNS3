@@ -188,7 +188,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area):
     time.sleep(timer)
     tn.write(b"exit\r\n")
     time.sleep(timer)
-    tn.write("router bgp {}".format(as_id).encode('ascii'))
+    tn.write("router bgp {}\r\n".format(as_id).encode('ascii'))
     time.sleep(timer)
     for neighbor in neighbors :
         tn.write("neighbor {} remote-as {}\r\n".format(neighbor, as_id).encode('ascii'))
