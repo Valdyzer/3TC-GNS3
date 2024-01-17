@@ -1,29 +1,105 @@
-Jan 10 11:34:21.209 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
-Jan 10 11:34:21.210 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 52583.
-Jan 10 11:34:21.211 HYPERVISOR: exec_cmd: hypervisor version 
-Jan 10 11:34:21.211 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips 
-Jan 10 11:34:21.212 GENERAL: working_dir=C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips
-Jan 10 11:34:21.212 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\7e9b35f4-24a4-4c09-8645-910ff946c6dc 
-Jan 10 11:34:21.212 GENERAL: working_dir=C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\7e9b35f4-24a4-4c09-8645-910ff946c6dc
-Jan 10 11:34:21.212 HYPERVISOR: exec_cmd: vm create R2 2 c7200 
-Jan 10 11:34:21.213 VM: VM R2 created.
-Jan 10 11:34:21.214 HYPERVISOR: exec_cmd: vm set_con_tcp_port R2 5001 
-Jan 10 11:34:21.214 HYPERVISOR: exec_cmd: c7200 get_mac_addr R2 
-Jan 10 11:34:21.214 HYPERVISOR: exec_cmd: vm get_status R2 
-Jan 10 11:34:21.214 HYPERVISOR: exec_cmd: vm slot_add_binding R2 0 0 C7200-IO-FE 
-Jan 10 11:34:21.215 HYPERVISOR: exec_cmd: vm set_disk0 R2 0 
-Jan 10 11:34:21.215 HYPERVISOR: exec_cmd: vm set_exec_area R2 64 
-Jan 10 11:34:21.216 HYPERVISOR: exec_cmd: vm set_ios R2 C:/Users/crist/GNS3/images/IOS/c7200-advipservicesk9-mz.152-4.S5.image 
-Jan 10 11:34:21.216 HYPERVISOR: exec_cmd: c7200 set_mac_addr R2 ca02.5f24.0000 
-Jan 10 11:34:21.216 HYPERVISOR: exec_cmd: vm set_nvram R2 512 
-Jan 10 11:34:21.217 HYPERVISOR: exec_cmd: vm set_ram R2 512 
-Jan 10 11:34:21.217 HYPERVISOR: exec_cmd: vm get_status R2 
-Jan 10 11:34:21.217 HYPERVISOR: exec_cmd: vm slot_add_binding R2 1 0 PA-GE 
-Jan 10 11:34:21.217 HYPERVISOR: exec_cmd: vm get_status R2 
-Jan 10 11:34:21.217 HYPERVISOR: exec_cmd: vm slot_add_binding R2 2 0 PA-GE 
-Jan 10 11:34:23.274 HYPERVISOR: exec_cmd: nio create_udp udp-95a03165-374b-437d-9ad4-bd6deb13c0e5 10004 127.0.0.1 10005 
-Jan 10 11:34:23.538 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 1 0 udp-95a03165-374b-437d-9ad4-bd6deb13c0e5 
-Jan 10 11:34:23.538 HYPERVISOR: exec_cmd: vm get_status R2 
-Jan 10 11:34:23.562 HYPERVISOR: exec_cmd: nio create_udp udp-915de13c-f0bc-42bc-89eb-1fd375250b1e 10008 127.0.0.1 10009 
-Jan 10 11:34:23.565 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 2 0 udp-915de13c-f0bc-42bc-89eb-1fd375250b1e 
-Jan 10 11:34:23.566 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:30:03.824 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Jan 12 11:30:03.824 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 50600.
+Jan 12 11:30:04.321 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 12 11:30:04.321 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips 
+Jan 12 11:30:04.321 GENERAL: working_dir=C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips
+Jan 12 11:30:04.321 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\7e9b35f4-24a4-4c09-8645-910ff946c6dc 
+Jan 12 11:30:04.323 GENERAL: working_dir=C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\7e9b35f4-24a4-4c09-8645-910ff946c6dc
+Jan 12 11:30:04.323 HYPERVISOR: exec_cmd: vm create R2 2 c7200 
+Jan 12 11:30:04.324 VM: VM R2 created.
+Jan 12 11:30:04.324 HYPERVISOR: exec_cmd: vm set_con_tcp_port R2 5001 
+Jan 12 11:30:04.324 HYPERVISOR: exec_cmd: c7200 get_mac_addr R2 
+Jan 12 11:30:04.324 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:30:04.324 HYPERVISOR: exec_cmd: vm slot_add_binding R2 0 0 C7200-IO-FE 
+Jan 12 11:30:04.325 HYPERVISOR: exec_cmd: vm set_disk0 R2 0 
+Jan 12 11:30:04.325 HYPERVISOR: exec_cmd: vm set_exec_area R2 64 
+Jan 12 11:30:04.326 HYPERVISOR: exec_cmd: vm set_ios R2 C:/Users/crist/GNS3/images/IOS/c7200-advipservicesk9-mz.152-4.S5.image 
+Jan 12 11:30:04.326 HYPERVISOR: exec_cmd: c7200 set_mac_addr R2 ca02.5f24.0000 
+Jan 12 11:30:04.327 HYPERVISOR: exec_cmd: vm set_nvram R2 512 
+Jan 12 11:30:04.327 HYPERVISOR: exec_cmd: vm set_ram R2 512 
+Jan 12 11:30:04.327 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:30:04.327 HYPERVISOR: exec_cmd: vm slot_add_binding R2 1 0 PA-GE 
+Jan 12 11:30:04.328 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:30:04.328 HYPERVISOR: exec_cmd: vm slot_add_binding R2 2 0 PA-GE 
+Jan 12 11:30:06.403 HYPERVISOR: exec_cmd: nio create_udp udp-c60e077d-1f5f-4ab2-a92f-c27a269add19 10004 127.0.0.1 10005 
+Jan 12 11:30:06.656 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 1 0 udp-c60e077d-1f5f-4ab2-a92f-c27a269add19 
+Jan 12 11:30:06.657 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:30:06.681 HYPERVISOR: exec_cmd: nio create_udp udp-e2fb0802-1a00-4fd6-96e7-4c542cde434b 10008 127.0.0.1 10009 
+Jan 12 11:30:06.684 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 2 0 udp-e2fb0802-1a00-4fd6-96e7-4c542cde434b 
+Jan 12 11:30:06.684 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:30:34.773 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:30:34.774 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:30:34.774 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:30:34.783 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg configs\i2_private-config.cfg 
+Jan 12 11:30:34.784 HYPERVISOR: exec_cmd: vm start R2 
+Jan 12 11:31:05.080 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:31:55.907 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:31:55.908 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:31:55.908 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:32:36.877 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:32:36.878 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 12 11:32:37.010 VM: VM R2 shutdown.
+Jan 12 11:32:37.011 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:32:37.147 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:32:37.148 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:32:37.149 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:32:37.159 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg configs\i2_private-config.cfg 
+Jan 12 11:32:37.160 HYPERVISOR: exec_cmd: vm start R2 
+Jan 12 11:33:37.498 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:34:07.506 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:35:43.291 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:35:43.291 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:35:43.292 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:35:57.727 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:35:57.728 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 12 11:35:57.843 VM: VM R2 shutdown.
+Jan 12 11:35:57.844 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:35:57.986 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:35:57.987 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:35:57.987 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:35:57.996 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg configs\i2_private-config.cfg 
+Jan 12 11:35:57.997 HYPERVISOR: exec_cmd: vm start R2 
+Jan 12 11:37:28.331 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:37:58.343 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:39:34.734 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:39:34.735 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:39:34.735 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:39:49.063 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:39:49.064 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 12 11:39:49.237 VM: VM R2 shutdown.
+Jan 12 11:39:49.238 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:39:49.399 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:39:49.400 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:39:49.401 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:39:49.411 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg configs\i2_private-config.cfg 
+Jan 12 11:39:49.412 HYPERVISOR: exec_cmd: vm start R2 
+Jan 12 11:41:19.735 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:41:49.735 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:42:24.043 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:42:24.044 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:42:24.044 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:42:38.250 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:42:38.251 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 12 11:42:38.394 VM: VM R2 shutdown.
+Jan 12 11:42:38.395 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:42:38.588 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:42:38.589 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:42:38.590 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:42:38.602 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg configs\i2_private-config.cfg 
+Jan 12 11:42:38.603 HYPERVISOR: exec_cmd: vm start R2 
+Jan 12 11:44:08.902 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:44:29.389 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:44:29.390 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 12 11:44:29.494 VM: VM R2 shutdown.
+Jan 12 11:44:29.495 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:44:29.665 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:44:29.666 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:44:29.666 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:44:29.678 HYPERVISOR: exec_cmd: vm set_config R2 configs\i2_startup-config.cfg configs\i2_private-config.cfg 
+Jan 12 11:44:29.679 HYPERVISOR: exec_cmd: vm start R2 
+Jan 12 11:48:56.845 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 12 11:48:56.845 HYPERVISOR: exec_cmd: vm set_ghost_file R2 C:\Users\crist\GNS3\projects\PGNS3\project-files\dynamips\c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 12 11:48:56.846 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 12 11:49:30.051 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:51:00.072 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 12 11:51:30.091 HYPERVISOR: exec_cmd: vm extract_config R2 
