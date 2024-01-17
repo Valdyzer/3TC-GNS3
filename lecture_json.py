@@ -36,6 +36,33 @@ def data_interf(data):
                 interface = {"interface_id": network[router[1]]["interface"], "link_to": router[0], "ip_address": network[router[1]]["ipv6"], "area": "0", "border_if": 1}
                 AS["routers"][router[1]]["interfaces"].append(interface) 
 
+def data_iBGP(data): 
+    for AS in data['autonomous_systems']:
+        loopback = []
+        for router_name, router_info in AS["routers"].items():
+            router_number = router_name[1:]  # Obtient  le numéro après "R"
+            if len(router_number) ==1: 
+                router_number = "0" + router_number
+            router_info["iBGP"]  = {}
+            addr_loopback = "2001:1992:168:1{}::1".format(router_number)
+            loopback.append(addr_loopback)
+            router_info["iBGP"]["ipv6 loopback"] = addr_loopback
+            router_info["iBGP"]["neighbors"] = []
+        for router_name, router_info in AS["routers"].items():
+            router_info["iBGP"]["neighbors"] = [addr for addr in loopback if addr != router_info["iBGP"]["ipv6 loopback"]]   
+
+def data_eBGP(data): 
+    for AS in data['autonomous_systems']:
+        for router_info in AS['routers'].values():
+            for interface in router_info["interfaces"]:
+                if interface["border_if"] == 1:
+                    router_info["eBGP"] = {}
+                    router_info["eBGP"]["neighbors"] = [] #liste de dictionnaires
+                    router_info["eBGP"]["networks"] = [] #liste de strings
+
+
+    
+
 def initialisation(data):
     # Connect to GNS3 server
     gns3_server = Gns3Connector("http://127.0.0.1:3080")
