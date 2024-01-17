@@ -196,7 +196,7 @@ configure terminal
 		address-family ipv6 unicast
 			neighbor 2001:192:168:10::2 activate
 			network 2001:192:168:10::/126
-			network 2001:192:168:1::/126
+			  a
 			end
 write
 
