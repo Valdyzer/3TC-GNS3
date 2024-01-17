@@ -3,7 +3,7 @@ import fonctions as fct
 import threading 
 import time
 
-""" if __name__ == '__main__' :
+if __name__ == '__main__' :
 
     data = lect('network.json')
     host = "127.0.0.1"
@@ -22,7 +22,7 @@ import time
         thread.join()
 
     print('Va reload stp')
-    time.sleep(60)
+    time.sleep(6)
 
 
     threads_config = []
@@ -72,10 +72,7 @@ import time
             ipv6 = router_info['iBGP']['ipv6 loopback']
             neighbors = router_info['iBGP']['neighbors']
             protocol = AS['protocol']
-            interface = 0
-            while router_info['interfaces'][interface]['border_if'] != 0 :
-                interface += 1
-            area = router_info['interfaces'][interface]['area']    
+            area = router_info['interfaces'][0]['area']    
             t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area))
             t_iBGP.start()
             threads_iBGP.append(t_iBGP)
@@ -98,8 +95,3 @@ import time
                 networks = router_info['networks']
                 t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks))
                 t_eBGP_BR.start()
- """
-
-data = lect('network.json')
-for AS in data['autonomous_systems']:
-    print(data["autonomous_systems"][0]["routers"]["R1"]["interfaces"][0])
