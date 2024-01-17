@@ -12,7 +12,9 @@ def reset_router(host, port):
     time.sleep(timer)
     tn.write(b"enable\r\n")
     time.sleep(timer)
-    tn.write(b"write erase\r\n") #efface toute la config du routeur
+    tn.write(b"delete nvram:startup-config\r\n") #efface toute la config du routeur
+    time.sleep(timer)
+    tn.write(b"\r\n")  #Confirmation du "erase"
     time.sleep(timer)
     tn.write(b"\r\n")  #Confirmation du "erase"
     time.sleep(timer)
