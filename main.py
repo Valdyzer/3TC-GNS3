@@ -82,7 +82,7 @@ if __name__ == '__main__' :
 
     #Configuration eBGP des routeurs de bordure 
     for AS in data['autonomous_systems']:
-        for router_info in AS["routers"].values:
+        for router_info in AS["routers"].values():
             port = router_info['port']
             as_id = AS['as_id']
             router_id = router_info['router_id']
