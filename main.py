@@ -7,6 +7,7 @@ if __name__ == '__main__' :
 
     data = lect('network.json')
     host = "127.0.0.1"
+    timer = 2
     initialisation(data)
 
     #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
