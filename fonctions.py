@@ -165,7 +165,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area):
     tn.write("ipv6 address {}\r\n".format(ipv6_loopback).encode('ascii'))
     time.sleep(timer)
     if protocol == "RIP" :
-        tn.write(b"ipv6 rip RIPng enable\r\n")
+        tn.write(b"ipv6 rip ripng enable\r\n")
     elif protocol == "OSPF" :
         tn.write("ipv6 ospf 1 area {}\r\n".format(area).encode('ascii'))
     time.sleep(timer)
