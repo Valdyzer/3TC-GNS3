@@ -22,7 +22,7 @@ if __name__ == '__main__' :
         thread.join()
 
     print('Va reload stp')
-    time.sleep(60)
+    time.sleep(6)
 
 
     threads_config = []
@@ -95,4 +95,3 @@ if __name__ == '__main__' :
                 networks = router_info['networks']
                 t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks))
                 t_eBGP_BR.start()
-            

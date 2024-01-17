@@ -13,14 +13,28 @@ def lect(dict) :
 
     return(data)
 
-def adressage(networks):
-    for network, routers in networks.items():
+def adressage(data):
+    for network, routers in data["networks"].items():
         base = network.split('::')[0]
         for i, router in enumerate(routers.keys()):
-                print(i, router)
-                routers[router] = base + f'::{i+1}'
-    
-    return networks
+                routers[router]["ipv6"] = base + f'::{i+1}'
+
+def data_interf(data): 
+    for network, routers in data["networks"].items():
+        router = routers.keys()
+        for AS in data['autonomous_systems']:
+            if (router[0] in AS["routers"].keys()) and (router[1] in AS["routers"].keys() in AS["routers"].keys()) :
+                interface = {"interface_id": network[router[0]]["interface"], "link_to": router[1], "ip_address": network[router[0]]["ipv6"], "area": "0", "border_if": 0}
+                AS["routers"][router[0]]["interfaces"].append(interface)
+                interface = {"interface_id": network[router[1]]["interface"], "link_to": router[0], "ip_address": network[router[1]]["ipv6"], "area": "0", "border_if": 0}
+                AS["routers"][router[1]]["interfaces"].append(interface)  
+                break 
+            elif router[0] in AS["routers"].keys():
+                interface = {"interface_id": network[router[0]]["interface"], "link_to": router[1], "ip_address": network[router[0]]["ipv6"], "area": "0", "border_if": 1}
+                AS["routers"][router[0]]["interfaces"].append(interface)                
+            elif router[1] in AS["routers"].keys():
+                interface = {"interface_id": network[router[1]]["interface"], "link_to": router[0], "ip_address": network[router[1]]["ipv6"], "area": "0", "border_if": 1}
+                AS["routers"][router[1]]["interfaces"].append(interface) 
 
 def initialisation(data):
     # Connect to GNS3 server
