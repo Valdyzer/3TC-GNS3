@@ -22,7 +22,7 @@ if __name__ == '__main__' :
         thread.join()
 
     print('Va reload stp')
-    time.sleep(60)
+    time.sleep(6)
 
 
     threads_config = []
