@@ -3,7 +3,7 @@ import fonctions as fct
 import threading 
 import time
 
-if __name__ == '__main__' :
+""" if __name__ == '__main__' :
 
     data = lect('network.json')
     host = "127.0.0.1"
@@ -98,4 +98,8 @@ if __name__ == '__main__' :
                 networks = router_info['networks']
                 t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks))
                 t_eBGP_BR.start()
-            
+ """
+
+data = lect('network.json')
+for AS in data['autonomous_systems']:
+    print(data["autonomous_systems"][0]["routers"]["R1"]["interfaces"][0])
