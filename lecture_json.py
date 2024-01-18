@@ -14,28 +14,31 @@ def lect(dict) :
     return(data)
 
 def adressage(data):
-    for i, AS in enumerate(data["networks"].keys()):
-        for network, routers in AS[i].items():
-            base = network.split('::')[0]
-            for j, router in enumerate(routers.keys()):
-                    routers[router]["ipv6"] = base + f'{i}::{j+1}'
+    for subnetworks in data["networks"].values():
+        for subnetwork, routers in subnetworks.items():
+            base = subnetwork.split('::')[0]
+            for i, router in enumerate(routers.keys()):
+                routers[router]["ipv6"] = base + f'::{i+1}'
+
+
 
 def data_interf(data): 
-    for network, routers in data["networks"].items():
-        router = routers.keys()
-        for AS in data['autonomous_systems']:
-            if (router[0] in AS["routers"].keys()) and (router[1] in AS["routers"].keys() in AS["routers"].keys()) :
-                interface = {"interface_id": network[router[0]]["interface"], "link_to": router[1], "ip_address": network[router[0]]["ipv6"], "area": "0", "border_if": 0}
-                AS["routers"][router[0]]["interfaces"].append(interface)
-                interface = {"interface_id": network[router[1]]["interface"], "link_to": router[0], "ip_address": network[router[1]]["ipv6"], "area": "0", "border_if": 0}
-                AS["routers"][router[1]]["interfaces"].append(interface)  
-                break 
-            elif router[0] in AS["routers"].keys():
-                interface = {"interface_id": network[router[0]]["interface"], "link_to": router[1], "ip_address": network[router[0]]["ipv6"], "area": "0", "border_if": 1}
-                AS["routers"][router[0]]["interfaces"].append(interface)                
-            elif router[1] in AS["routers"].keys():
-                interface = {"interface_id": network[router[1]]["interface"], "link_to": router[0], "ip_address": network[router[1]]["ipv6"], "area": "0", "border_if": 1}
-                AS["routers"][router[1]]["interfaces"].append(interface) 
+    for subnetworks in data["networks"].values():
+        for subnetwork, routers in subnetworks.items():
+            router = list(routers.keys())
+            for AS in data['autonomous_systems']:
+                if (router[0] in AS["routers"].keys()) and (router[1] in AS["routers"].keys()) :
+                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 0}
+                    AS["routers"][router[0]]["interfaces"].append(interface)
+                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 0}
+                    AS["routers"][router[1]]["interfaces"].append(interface)  
+                    break 
+                elif router[0] in AS["routers"].keys():
+                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 1}
+                    AS["routers"][router[0]]["interfaces"].append(interface)                
+                elif router[1] in AS["routers"].keys():
+                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 1}
+                    AS["routers"][router[1]]["interfaces"].append(interface) 
 
 def data_iBGP(data): 
     for AS in data['autonomous_systems']:
@@ -99,4 +102,7 @@ def initialisation(data):
             i +=1 
 
         link = Link(project_id=project.project_id, nodes=[node_a, node_b], node_interfaces=[interface_a,interface_b], link_type="ethernet")
-  
+data = lect("big_network.json")
+adressage(data)
+data_interf(data)
+print(data["autonomous_systems"])
