@@ -1,5 +1,3 @@
-timer = 1
-
 from lecture_json import lect, initialisation
 import fonctions as fct
 import threading 
