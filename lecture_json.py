@@ -50,7 +50,7 @@ def data_iBGP(data):
             if len(router_number) ==1: 
                 router_number = "0" + router_number
             router_info["iBGP"]  = {}
-            addr_loopback = "2001:1992:168:1{}::1".format(router_number)
+            addr_loopback = "2001:192:168:1{}::1".format(router_number)
             loopback.append(addr_loopback)
             router_info["iBGP"]["ipv6 loopback"] = addr_loopback
             router_info["iBGP"]["neighbors"] = []
@@ -74,11 +74,14 @@ def data_eBGP(data):
                             for intf in AS1["routers"][routerB]["interfaces"]:
                                 if intf["link_to"] == routerA: 
                                     ipv6 = intf["ip_address"]
-                                    position = ipv6.find("/")
-                                    ipv6 = ipv6[:position]
-                                    print(ipv6)
-                                    neighbor = {"ipv6": ipv6, "as_id": AS1["as_id"]}
+                                    position_slash = ipv6.find("/")
+                                    ipv6_neighbor = ipv6[:position_slash]
+                                    position_points = ipv6.find("::")
+                                    ipv6_network = ipv6[:position_points+2]+ipv6[position_slash:]
+                                    router_info["eBGP"]["networks"].append(ipv6_network)
+                                    neighbor = {"ipv6": ipv6_neighbor, "as_id": AS1["as_id"]}
                                     router_info["eBGP"]["neighbors"].append(neighbor)
+                    print(router_info["eBGP"])
 
 def init_json(dict):
     data = lect(dict)
@@ -125,6 +128,3 @@ def init_GNS3(data, nom_projet):
 
  """
 
-
-data = init_json("big_network.json")
-#init_GNS3(data, "BigNetwork")
