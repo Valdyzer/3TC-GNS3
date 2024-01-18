@@ -1,13 +1,14 @@
-from lecture_json import lect, initialisation
+from lecture_json import *
 import fonctions as fct
 import threading 
 import time
 
 if __name__ == '__main__' :
 
-    data = lect('network.json')
+    data = init_json('big_network.json')  
     host = "127.0.0.1"
-    initialisation(data)
+    nom_projet = "BigNetwork"
+    init_GNS3(data, nom_projet)
 
     #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
     threads_reset = []   
@@ -90,7 +91,7 @@ if __name__ == '__main__' :
             t_eBGP.start()
             t_eBGP.join()  
 
-            if router_info["BR"]==1: 
+            if "eBGP" in router_info.keys():
                 neighbors = router_info['eBGP']['neighbors']
                 networks = router_info["eBGP"]['networks']
                 t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks))

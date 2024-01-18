@@ -1,117 +1,101 @@
 {
   "autonomous_systems": [
     {
-      "as_id": 1,
+      "as_id": "1",
+      "network address": "2001:192:168:1::/64",
       "protocol": "RIP",
+      "BGP Policies": {"AS2": "peer"},
       "routers": {
         "R1":{
           "router_id": "1.1.1.1",
-          "port": 5000,
+          "port": 5001,
           "BE": 1,
           "interfaces": []
         },
         "R2":{
           "router_id": "2.2.2.2", 
-          "port": 5001,
+          "port": 5002,
           "BE": 0,
           "interfaces": []
         },
         "R3":{
             "router_id": "3.3.3.3",
-            "port": 5002,
+            "port": 5003,
             "BE": 0,
             "interfaces": []
           },
         "R4":{
             "router_id": "4.4.4.4",
-            "port": 5003,
+            "port": 5004,
             "BE": 0,
             "interfaces": []
           },
         "R5":{
             "router_id": "5.5.5.5",
-            "port": 5004,
+            "port": 5005,
             "BE": 0,
             "interfaces": []
           },
         "R6":{
             "router_id": "6.6.6.6",
-            "port": 5005,
+            "port": 5006,
             "BE": 0,
-            "interfaces": [],
-            "eBGP": {"neighbors": [
-                {"ipv6": "2001:192:168:10::1", "as_id": "1"}
-              ], 
-                "networks": ["2001:192:168:10::/126", "2001:192:168:4::/126"]
-              }
+            "interfaces": []
         },
         "R7":{
             "router_id": "7.7.7.7",
-            "port": 5006,
+            "port": 5007,
             "BE": 0,
-            "interfaces": [],
-            "eBGP": {"neighbors": [
-                {"ipv6": "2001:192:168:10::1", "as_id": "1"}
-              ], 
-                "networks": ["2001:192:168:10::/126", "2001:192:168:4::/126"]
-              }
+            "interfaces": []
         }    
         }
     },
     {
-      "as_id": 2,
+      "as_id": "2",
+      "network address": "2001:192:168:2::/64",
       "protocol": "OSPF",
+      "BGP Policies": {"AS1": "peer"},
       "routers": 
       {
         "R8": {
             "router_id": "8.8.8.8",
-            "port": 5007,
+            "port": 5008,
             "BE": 0,
-            "interfaces": [], 
-            "eBGP": {"neighbors": [
-              {"ipv6": "2001:192:168:10::1", "as_id": "1"}
-            ], 
-              "networks": ["2001:192:168:10::/126", "2001:192:168:4::/126"]
-            }
+            "interfaces": []
         },
         "R9":{
           "router_id": "9.9.9.9",
-          "port": 5008,
+          "port": 5009,
           "BE": 0,
-          "interfaces": [],
-          "eBGP": {"neighbors": [
-            {"ipv6": "2001:192:168:10::1", "as_id": "1"}
-          ], 
-            "networks": ["2001:192:168:10::/126", "2001:192:168:4::/126"]
-          }
+          "interfaces": []
         },
         "R10":{
           "router_id": "10.10.10.10",
-          "port": 5009,
+          "port": 5010,
           "BE": 0,
           "interfaces": []
         },
         "R11":{
             "router_id": "11.11.11.11",
-            "port": 5010,
+            "port": 5011,
             "BE": 0,
             "interfaces": []
         },
         "R12":{
             "router_id": "12.12.12.12",
-            "port": 5011,
+            "port": 5012,
             "BE": 0,
             "interfaces": []
         },
         "R13":{
             "router_id": "13.13.13.13",
-            "port": 5012,
+            "port": 5013,
             "BE": 0,
             "interfaces": []
         },
         "R14":{
             "router_id": "14.14.14.14",
-            "port": 5013,
+            "port": 5014,
             "BE": 1,
             "interfaces": []
         }
@@ -153,24 +137,12 @@
         "R7": {"interface": "GigabitEthernet4/0", "ipv6": ""}
     },
     "2001:192:168:1:9::/126":{
-        "R5": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R6": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R5": {"interface": "GigabitEthernet4/0", "ipv6": ""},
+        "R6": {"interface": "GigabitEthernet4/0", "ipv6": ""}
     },
     "2001:192:168:1:10::/126":{
-        "R5": {"interface": "GigabitEthernet5/0", "ipv6": ""},
-        "R7": {"interface": "GigabitEthernet5/0", "ipv6": ""}
-    }
-  },
-    "2001:192:168:3::/64":{
-      "2001:192:168:3:1::/126":{
-        "R6": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R8": {"interface": "GigabitEthernet3/0", "ipv6": ""}
-    }
-  },
-    "2001:192:168:4::/64":{
-      "2001:192:168:4:1::/126":{
-        "R7": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R9": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R5": {"interface": "GigabitEthernet2/0", "ipv6": ""},
+        "R7": {"interface": "GigabitEthernet2/0", "ipv6": ""}
     }
   },
     "2001:192:168:2::/64":{
@@ -179,41 +151,53 @@
         "R10": {"interface": "GigabitEthernet1/0", "ipv6": ""}
     },
     "2001:192:168:2:2::/126":{
-        "R8": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R11": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R8": {"interface": "GigabitEthernet4/0", "ipv6": ""},
+        "R11": {"interface": "GigabitEthernet4/0", "ipv6": ""}
     },
     "2001:192:168:2:3::/126":{
-        "R9": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R10": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R9": {"interface": "GigabitEthernet4/0", "ipv6": ""},
+        "R10": {"interface": "GigabitEthernet4/0", "ipv6": ""}
     },
     "2001:192:168:2:4::/126":{
-        "R9": {"interface": "GigabitEthernet1/0", "ipv6": ""},
-        "R11": {"interface": "GigabitEthernet1/0", "ipv6": ""}
+        "R9": {"interface": "GigabitEthernet2/0", "ipv6": ""},
+        "R11": {"interface": "GigabitEthernet2/0", "ipv6": ""}
     },
     "2001:192:168:2:5::/126":{
         "R10": {"interface": "GigabitEthernet3/0", "ipv6": ""},
         "R11": {"interface": "GigabitEthernet3/0", "ipv6": ""}
     },
     "2001:192:168:2:6::/126":{
-        "R10": {"interface": "GigabitEthernet4/0", "ipv6": ""},
-        "R12": {"interface": "GigabitEthernet4/0", "ipv6": ""}
+        "R10": {"interface": "GigabitEthernet2/0", "ipv6": ""},
+        "R12": {"interface": "GigabitEthernet2/0", "ipv6": ""}
     },
     "2001:192:168:2:7::/126":{
-        "R11": {"interface": "GigabitEthernet4/0", "ipv6": ""},
-        "R13": {"interface": "GigabitEthernet4/0", "ipv6": ""}
-    },
-    "2001:192:168:2:8::/126":{
-        "R12": {"interface": "GigabitEthernet1/0", "ipv6": ""},
+        "R11": {"interface": "GigabitEthernet1/0", "ipv6": ""},
         "R13": {"interface": "GigabitEthernet1/0", "ipv6": ""}
     },
+    "2001:192:168:2:8::/126":{
+        "R12": {"interface": "GigabitEthernet3/0", "ipv6": ""},
+        "R13": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+    },
     "2001:192:168:2:9::/126":{
-        "R12": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R14": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R12": {"interface": "GigabitEthernet1/0", "ipv6": ""},
+        "R14": {"interface": "GigabitEthernet1/0", "ipv6": ""}
     },
     "2001:192:168:2:10::/126":{
-        "R13": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R14": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R13": {"interface": "GigabitEthernet2/0", "ipv6": ""},
+        "R14": {"interface": "GigabitEthernet2/0", "ipv6": ""}
     }
+    },
+    "2001:192:168:3::/64":{
+      "2001:192:168:3:1::/126":{
+        "R6": {"interface": "GigabitEthernet2/0", "ipv6": ""},
+        "R8": {"interface": "GigabitEthernet2/0", "ipv6": ""}
     }
+  },
+    "2001:192:168:4::/64":{
+      "2001:192:168:4:1::/126":{
+        "R7": {"interface": "GigabitEthernet1/0", "ipv6": ""},
+        "R9": {"interface": "GigabitEthernet1/0", "ipv6": ""}
+    }
+  }
   }    
 }

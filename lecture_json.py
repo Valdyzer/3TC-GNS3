@@ -16,9 +16,10 @@ def lect(dict) :
 def adressage(data):
     for subnetworks in data["networks"].values():
         for subnetwork, routers in subnetworks.items():
+            position = subnetwork.find("::")
             base = subnetwork.split('::')[0]
             for i, router in enumerate(routers.keys()):
-                routers[router]["ipv6"] = base + f'::{i+1}'
+                routers[router]["ipv6"] = f"{subnetwork[:position+2]}{i+1}{subnetwork[position+2:]}"
 
 
 
@@ -28,17 +29,18 @@ def data_interf(data):
             router = list(routers.keys())
             for AS in data['autonomous_systems']:
                 if (router[0] in AS["routers"].keys()) and (router[1] in AS["routers"].keys()) :
-                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 0}
+                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 0, "cost": "100"}
                     AS["routers"][router[0]]["interfaces"].append(interface)
-                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 0}
+                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 0, "cost": "100"}
                     AS["routers"][router[1]]["interfaces"].append(interface)  
                     break 
                 elif router[0] in AS["routers"].keys():
-                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 1}
+                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 1, "cost": "100"}
                     AS["routers"][router[0]]["interfaces"].append(interface)                
                 elif router[1] in AS["routers"].keys():
-                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 1}
+                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 1, "cost": "100"}
                     AS["routers"][router[1]]["interfaces"].append(interface) 
+                
 
 def data_iBGP(data): 
     for AS in data['autonomous_systems']:
@@ -58,30 +60,48 @@ def data_iBGP(data):
 
 def data_eBGP(data): 
     for AS in data['autonomous_systems']:
-        for routerA, router_info in AS['routers'].values():
+        for routerA, router_info in AS['routers'].items():
             for interface in router_info["interfaces"]:
                 if interface["border_if"] == 1:
                     routerB = interface["link_to"]
                     router_info["eBGP"] = {}
                     router_info["eBGP"]["neighbors"] = [] #liste de dictionnaires
-                    router_info["eBGP"]["networks"] = [] #liste de strings
+                    router_info["eBGP"]["networks"] = [AS["network address"]] #liste de strings
+                    #router_info["eBGP"]["networks"].append(""" adresse reseau lien """) 
+                    #je sais pas comment la retrouver, elle est dans "networks"
+                    for AS1 in data["autonomous_systems"]:
+                        if routerB in AS1["routers"].keys():
+                            for intf in AS1["routers"][routerB]["interfaces"]:
+                                if intf["link_to"] == routerA: 
+                                    ipv6 = intf["ip_address"]
+                                    position = ipv6.find("/")
+                                    ipv6 = ipv6[:position]
+                                    print(ipv6)
+                                    neighbor = {"ipv6": ipv6, "as_id": AS1["as_id"]}
+                                    router_info["eBGP"]["neighbors"].append(neighbor)
 
+def init_json(dict):
+    data = lect(dict)
+    adressage(data)
+    data_interf(data)
+    data_iBGP(data)
+    data_eBGP(data)
+    return data 
+  
 
-    
-
-def initialisation(data):
+def init_GNS3(data, nom_projet):
     # Connect to GNS3 server
     gns3_server = Gns3Connector("http://127.0.0.1:3080")
     # Se connecter au projet
-    project = Project(name="PGNS3", connector=gns3_server)
+    project = Project(name=nom_projet, connector=gns3_server)
     project.get()
-    # Crea instancias de routers utilizando la información del JSON
+
     for AS in data['autonomous_systems']:
         for router in AS['routers']:
             node = Node(project_id=project.project_id, name=router, node_type="dynamips", connector=gns3_server)
             node.start()
             AS["routers"][router]['gns3_id'] = node.node_id
-
+""" 
     for link in data['links']:
         source_node = link['from'] #R1, nous avons besoin du node_id et pas du nom du routeur
         target_node = link['to']
@@ -102,7 +122,9 @@ def initialisation(data):
             i +=1 
 
         link = Link(project_id=project.project_id, nodes=[node_a, node_b], node_interfaces=[interface_a,interface_b], link_type="ethernet")
-data = lect("big_network.json")
-adressage(data)
-data_interf(data)
-print(data["autonomous_systems"])
+
+ """
+
+
+data = init_json("big_network.json")
+#init_GNS3(data, "BigNetwork")
