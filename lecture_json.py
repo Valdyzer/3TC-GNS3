@@ -14,10 +14,11 @@ def lect(dict) :
     return(data)
 
 def adressage(data):
-    for network, routers in data["networks"].items():
-        base = network.split('::')[0]
-        for i, router in enumerate(routers.keys()):
-                routers[router]["ipv6"] = base + f'::{i+1}'
+    for i, AS in enumerate(data["networks"].keys()):
+        for network, routers in AS[i].items():
+            base = network.split('::')[0]
+            for j, router in enumerate(routers.keys()):
+                    routers[router]["ipv6"] = base + f'{i}::{j+1}'
 
 def data_interf(data): 
     for network, routers in data["networks"].items():
@@ -48,15 +49,16 @@ def data_iBGP(data):
             loopback.append(addr_loopback)
             router_info["iBGP"]["ipv6 loopback"] = addr_loopback
             router_info["iBGP"]["neighbors"] = []
+            
         for router_name, router_info in AS["routers"].items():
             router_info["iBGP"]["neighbors"] = [addr for addr in loopback if addr != router_info["iBGP"]["ipv6 loopback"]]   
 
 def data_eBGP(data): 
     for AS in data['autonomous_systems']:
-        for router_info in AS['routers'].values():
+        for routerA, router_info in AS['routers'].values():
             for interface in router_info["interfaces"]:
                 if interface["border_if"] == 1:
-                    router_name = interface["link_to"]
+                    routerB = interface["link_to"]
                     router_info["eBGP"] = {}
                     router_info["eBGP"]["neighbors"] = [] #liste de dictionnaires
                     router_info["eBGP"]["networks"] = [] #liste de strings
