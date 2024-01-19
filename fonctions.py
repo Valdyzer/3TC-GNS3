@@ -162,7 +162,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area):
     time.sleep(timer)
     tn.write(b"ipv6 enable\r\n")
     time.sleep(timer)
-    tn.write("ipv6 address {}\r\n".format(ipv6_loopback).encode('ascii'))
+    tn.write("ipv6 address {}/126\r\n".format(ipv6_loopback).encode('ascii'))
     time.sleep(timer)
     if protocol == "RIP" :
         tn.write(b"ipv6 rip ripng enable\r\n")
