@@ -50,7 +50,7 @@ def data_iBGP(data):
             if len(router_number) ==1: 
                 router_number = "0" + router_number
             router_info["iBGP"]  = {}
-            addr_loopback = "2001:192:168:1{}::1".format(router_number)
+            addr_loopback = "2001:192:168:1{}::1/126".format(router_number)
             loopback.append(addr_loopback)
             router_info["iBGP"]["ipv6 loopback"] = addr_loopback
             router_info["iBGP"]["neighbors"] = []
