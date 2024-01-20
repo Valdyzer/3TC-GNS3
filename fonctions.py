@@ -146,6 +146,13 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks):
     for network in networks :
         tn.write("network {}\r\n".format(network).encode('ascii'))
         time.sleep(timer)
+    tn.write(b"exit\r\n")
+    time.sleep(timer)
+    tn.write(b"exit\r\n")
+    time.sleep(timer)
+    for network in networks :
+        tn.write("ipv6 route {} Null0\r\n".format(network).encode('ascii'))
+        time.sleep(timer)
     tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"write\r\n")
