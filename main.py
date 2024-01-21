@@ -5,9 +5,9 @@ import time
 
 if __name__ == '__main__' :
 
-    data = init_json('big_network.json')  
+    data = init_json('Policies.json')  
     host = "127.0.0.1"
-    nom_projet = "BigNetwork"
+    nom_projet = "Policies"
     init_GNS3(data, nom_projet)
 
     #Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
