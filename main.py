@@ -10,8 +10,9 @@ if __name__ == '__main__' :
     nom_projet = "Policies"
     init_GNS3(data, nom_projet)
 
+    print(data)
 
-    # Efface le contenu des R.txt
+    # Efface les fichiers R.txt
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
             fichier = router_name + ".txt"
@@ -39,7 +40,7 @@ if __name__ == '__main__' :
 
 
     threads_config = []
-    #paralelisation pour configurer chaque routeur
+    # Parallélisation pour configurer chaque routeur
     for autonomous_system in data['autonomous_systems']:
         for router_name, router_data in autonomous_system['routers'].items():
             pconfig= threading.Thread(target=fct.configure_router, args=(host, router_data['port'], router_data['interfaces'], router_name+".txt"))
@@ -103,7 +104,7 @@ if __name__ == '__main__' :
 
             if "eBGP" in router_info.keys():
                 neighbors = router_info['eBGP']['neighbors']
-                networks = router_info["eBGP"]['networks']
+                networks = router_info['eBGP']['networks']
                 t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks, router_name+".txt"))
                 t_eBGP_BR.start()
                 threads_eBGP.append(t_eBGP_BR)
