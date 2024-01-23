@@ -191,11 +191,12 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks, fichier):
                      "router bgp " + as_id + "\r\n")
     
     for neighbor in neighbors :
-        tn.write("neighbor {} remote-as {}\r\n".format(neighbor["ipv6"], neighbor["as_id"]).encode('ascii'))
+        ip_neighbor = neighbor["ipv6"][:(neighbor["ipv6"].find('/'))]
+        tn.write("neighbor {} remote-as {}\r\n".format(ip_neighbor, neighbor["as_id"]).encode('ascii'))
         time.sleep(timer)
         tn.write(b"address-family ipv6 unicast\r\n")
         time.sleep(timer)
-        tn.write("neighbor {} activate\r\n".format(neighbor["ipv6"]).encode('ascii'))
+        tn.write("neighbor {} activate\r\n".format(ip_neighbor).encode('ascii'))
         time.sleep(timer)
         tn.write(b"exit\r\n")
         time.sleep(timer)
