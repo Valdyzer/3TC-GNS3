@@ -13,10 +13,13 @@ if __name__ == '__main__' :
 
     # Efface le contenu des R.txt
     for AS in data['autonomous_systems']:
-        for router_name,router_info in AS['routers'].items():
-            with open(router_name+'.txt', 'w') as fichier:
-                fichier.truncate(0)
-                fichier.close
+        for router_name in AS['routers'].keys():
+            fichier = router_name + ".txt"
+            fichier.remove()    
+                                 
+            # with open(router_name+'.txt', 'w') as fichier:
+            #     fichier.truncate(0)
+            #     fichier.close
 
 
     # Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
