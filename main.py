@@ -15,8 +15,7 @@ if __name__ == '__main__' :
     # Efface les fichiers R.txt
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
-            fichier = router_name + ".txt"
-            fichier.remove()    
+            os.remove(router_name + ".txt")    
                                  
             # with open(router_name+'.txt', 'w') as fichier:
             #     fichier.truncate(0)
