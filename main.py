@@ -16,12 +16,8 @@ if __name__ == '__main__' :
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
             os.remove(router_name + ".txt")    
-                                 
-            # with open(router_name+'.txt', 'w') as fichier:
-            #     fichier.truncate(0)
-            #     fichier.close
-
-
+            
+            
     # Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
     threads_reset = []   
 
@@ -91,7 +87,8 @@ if __name__ == '__main__' :
         thread.join()
 
     threads_eBGP = []
-    #Configuration eBGP des routeurs de bordure 
+    
+    #Configuration eBGP des routeurs
     for AS in data['autonomous_systems']:
         for router_name, router_info in AS["routers"].items():
             port = router_info['port']
@@ -100,13 +97,15 @@ if __name__ == '__main__' :
             t_eBGP = threading.Thread(target=fct.configure_eBGP, args=(host, port, as_id, router_id, router_name+".txt"))
             t_eBGP.start()
             t_eBGP.join()  
-
+            
+            #Routeurs de bordure
             if "eBGP" in router_info.keys():
                 neighbors = router_info['eBGP']['neighbors']
                 networks = router_info['eBGP']['networks']
                 t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks, router_name+".txt"))
                 t_eBGP_BR.start()
                 threads_eBGP.append(t_eBGP_BR)
+                
     for thread in threads_eBGP: 
         thread.join()            
 

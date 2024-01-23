@@ -190,7 +190,7 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks, fichier):
     ecriture_fichier(fichier,
                      "router bgp " + as_id + "\r\n")
     
-    for neighbor in neighbors :
+    for neighbor in neighbors :        
         ip_neighbor = neighbor["ipv6"][:(neighbor["ipv6"].find("/"))]
         tn.write("neighbor {} remote-as {}\r\n".format(ip_neighbor, neighbor["as_id"]).encode('ascii'))
         time.sleep(timer)
@@ -263,9 +263,10 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, 
     time.sleep(timer)
     ecriture_fichier(fichier, "exit\r\n"+"router bgp " + as_id + "\r\n")
     for neighbor in neighbors :
-        tn.write("neighbor {} remote-as {}\r\n".format(neighbor["ipv6"], as_id).encode('ascii'))
+        ipv6_neighbor = neighbor[:neighbor.find('/')]
+        tn.write("neighbor {} remote-as {}\r\n".format(ipv6_neighbor, as_id).encode('ascii'))
         time.sleep(timer)
-        tn.write("neighbor {} update-source loopback 0\r\n".format(neighbor["ipv6"]).encode('ascii'))
+        tn.write("neighbor {} update-source loopback 0\r\n".format(ipv6_neighbor).encode('ascii'))
         time.sleep(timer)
         tn.write(b"address-family ipv6 unicast\r\n")
         time.sleep(timer)
