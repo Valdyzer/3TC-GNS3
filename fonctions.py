@@ -270,7 +270,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, 
         time.sleep(timer)
         tn.write(b"address-family ipv6 unicast\r\n")
         time.sleep(timer)
-        tn.write("neighbor {} activate\r\n".format(neighbor).encode('ascii'))
+        tn.write("neighbor {} activate\r\n".format(ipv6_neighbor).encode('ascii'))
         time.sleep(timer)
         tn.write(b"exit\r\n")
         time.sleep(timer)
@@ -279,7 +279,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, 
                          "neighbor " + neighbor + " remote-as " + as_id + "\r\n" +
                          "neighbor " + neighbor + " update-source loopback 0\r\n" +
                          "address-family ipv6 unicast\r\n"+
-                         "neighbor " + neighbor + " activate\r\n" + "exit\r\n")
+                         "neighbor " + ipv6_neighbor + " activate\r\n" + "exit\r\n")
         
     tn.write(b"end\r\n")
     time.sleep(timer)

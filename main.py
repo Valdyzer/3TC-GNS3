@@ -12,11 +12,10 @@ if __name__ == '__main__' :
 
     print(data)
 
-    # Efface les fichiers R.txt
+   # Efface les fichiers R.txt
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
             os.remove(router_name + ".txt")    
-            
             
     # Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
     threads_reset = []   
@@ -69,23 +68,6 @@ if __name__ == '__main__' :
     for thread in threads_IGP:
         thread.join()
 
-
-    #Configuration iBGP de tous les routeurs
-    threads_iBGP = []
-    for AS in data['autonomous_systems'] :
-        for router_name, router_info in AS["routers"].items() :
-            port = router_info['port']
-            as_id = AS['as_id']
-            ipv6 = router_info['iBGP']['ipv6 loopback']
-            neighbors = router_info['iBGP']['neighbors']
-            protocol = AS['protocol']
-            area = router_info['interfaces'][0]['area']    
-            t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area, router_name+".txt"))
-            t_iBGP.start()
-            threads_iBGP.append(t_iBGP)
-    for thread in threads_iBGP:
-        thread.join()
-
     threads_eBGP = []
     
     #Configuration eBGP des routeurs
@@ -109,4 +91,20 @@ if __name__ == '__main__' :
     for thread in threads_eBGP: 
         thread.join()            
 
+#Configuration iBGP de tous les routeurs
+    threads_iBGP = []
+    for AS in data['autonomous_systems'] :
+        for router_name, router_info in AS["routers"].items() :
+            port = router_info['port']
+            as_id = AS['as_id']
+            ipv6 = router_info['iBGP']['ipv6 loopback']
+            neighbors = router_info['iBGP']['neighbors']
+            protocol = AS['protocol']
+            area = router_info['interfaces'][0]['area']    
+            t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area, router_name+".txt"))
+            t_iBGP.start()
+            threads_iBGP.append(t_iBGP)
+    for thread in threads_iBGP:
+        thread.join()
+        
     print("fin")
