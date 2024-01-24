@@ -64,3 +64,20 @@ ipv6 route 2001:192:168:7:1::/126 Null0
 end
 write
 
+
+enable
+configure terminal
+interface loopback 0
+ipv6 enable
+ipv6 address 2001:192:168:109::1/126
+ipv6 ospf 1 area 0
+exit
+router bgp 3
+neighbor 2001:192:168:110::1/126 remote-as 3
+neighbor 2001:192:168:110::1/126 update-source loopback 0
+address-family ipv6 unicast
+neighbor 2001:192:168:110::1 activate
+exit
+end
+write
+
