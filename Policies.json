@@ -218,8 +218,8 @@
     },  
     "2001:192:168:9::/64":{
       "2001:192:168:9:1::/126":{
-        "R7": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R13": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R7": {"interface": "GigabitEthernet1/0", "ipv6": ""},
+        "R13": {"interface": "GigabitEthernet1/0", "ipv6": ""}
     }
     }
 }

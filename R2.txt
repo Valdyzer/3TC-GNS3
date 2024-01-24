@@ -59,20 +59,3 @@ ipv6 route 2001:192:168:6:1::/126 Null0
 end
 write
 
-
-enable
-configure terminal
-interface loopback 0
-ipv6 enable
-ipv6 address 2001:192:168:102::1/126
-ipv6 rip ripng enable
-exit
-router bgp 1
-neighbor 2001:192:168:101::1/126 remote-as 1
-neighbor 2001:192:168:101::1/126 update-source loopback 0
-address-family ipv6 unicast
-neighbor 2001:192:168:101::1 activate
-exit
-end
-write
-
