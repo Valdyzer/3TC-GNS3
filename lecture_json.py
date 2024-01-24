@@ -79,7 +79,7 @@ def data_eBGP(data):
                                     position_points = ipv6.find("::")
                                     ipv6_network = ipv6[:position_points+2]+ipv6[position_slash:]
                                     router_info["eBGP"]["networks"].append(ipv6_network)
-                                    neighbor = {"ipv6": ipv6_neighbor, "as_id": AS1["as_id"]}
+                                    neighbor = {"ipv6": intf["ip_address"], "as_id": AS1["as_id"]}
                                     router_info["eBGP"]["neighbors"].append(neighbor)
                     print(router_info["eBGP"])
 
