@@ -1,3 +1,4 @@
+from email import policy
 from gns3fy import Gns3Connector, Project, Node, Link
 import telnetlib
 import time
@@ -261,7 +262,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, 
     time.sleep(timer)
     tn.write("router bgp {}\r\n".format(as_id).encode('ascii'))
     time.sleep(timer)
-    ecriture_fichier(fichier, "exit\r\n"+"router bgp " + as_id + "\r\n")
+    ecriture_fichier(fichier, "exit\r\n" + "router bgp " + as_id + "\r\n")
     for neighbor in neighbors :
         ipv6_neighbor = neighbor[:neighbor.find('/')]
         tn.write("neighbor {} remote-as {}\r\n".format(ipv6_neighbor, as_id).encode('ascii'))
@@ -291,4 +292,50 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, 
     ecriture_fichier(fichier,
                      "end\r\nwrite\r\n\r\n")
 
-    
+def Policies(host, port, as_id, neighbors, policies, fichier):
+    tn = telnetlib.Telnet(host, port)
+    timer = 0.2
+    conft(tn, fichier)
+    tn.write("router bgp {}\r\n".format(as_id).encode('ascii'))
+    time.sleep(timer)
+    tn.write(b"address-family ipv6 unicast\r\n")
+    time.sleep(timer)
+
+    ecriture_fichier(fichier, 
+                     "router bgp " + as_id + "\r\n" +
+                     "address-family ipv6 unicast\r\n")
+
+    for neighbor in neighbors:
+        policy = policies["AS" + neighbor["as_id"]]
+        ip_neighbor = neighbor["ipv6"][:(neighbor["ipv6"].find("/"))]
+        tn.write("neighbor {} route-map {} in\r\n".format(ip_neighbor, policy).encode('ascii'))
+        time.sleep(timer)
+        ecriture_fichier(fichier, "neighbor " + ip_neighbor + " route-map " + policy + " in\r\n")
+    tn.write(b"exit\r\n")
+    time.sleep(timer)
+    tn.write(b"exit\r\n")
+    time.sleep(timer)
+    tn.write("route-map {} permit 10\r\n".format(policy).encode('ascii'))
+    time.sleep(timer)
+    ecriture_fichier(fichier, "exit\r\nexit\r\n" + "route-map " + policy + " permit 10\r\n")    
+    if policy == "client" :
+        tn.write(b"set local-preference 300\r\n")
+        ecriture_fichier(fichier, "set local-preference 300\r\n")
+    elif policy == "peer" :
+        tn.write(b"set local-preference 100\r\n")
+        ecriture_fichier(fichier, "set local-preference 100\r\n")
+    elif policy == "provider" :
+        tn.write(b"set local-preference 50\r\n")
+        ecriture_fichier(fichier, "set local-preference 50\r\n")
+    time.sleep(timer)
+    tn.write(b"end\r\n")
+    time.sleep(timer)
+    tn.write(b"write\r\n")
+    time.sleep(timer)
+    tn.write(b"\r\n")
+    time.sleep(timer)
+
+    ecriture_fichier(fichier, 
+                     "end\r\nwrite\r\n\r\n")
+
+

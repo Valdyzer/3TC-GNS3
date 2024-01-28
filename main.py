@@ -13,9 +13,11 @@ if __name__ == '__main__' :
     print(data)
 
    # Efface les fichiers R.txt
+    
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
             os.remove(router_name + ".txt")    
+
             
     # Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
     threads_reset = []   
@@ -68,9 +70,9 @@ if __name__ == '__main__' :
     for thread in threads_IGP:
         thread.join()
 
+
+# Configuration eBGP des routeurs
     threads_eBGP = []
-    
-    #Configuration eBGP des routeurs
     for AS in data['autonomous_systems']:
         for router_name, router_info in AS["routers"].items():
             port = router_info['port']
@@ -91,7 +93,7 @@ if __name__ == '__main__' :
     for thread in threads_eBGP: 
         thread.join()            
 
-#Configuration iBGP de tous les routeurs
+# Configuration iBGP de tous les routeurs
     threads_iBGP = []
     for AS in data['autonomous_systems'] :
         for router_name, router_info in AS["routers"].items() :
@@ -107,4 +109,20 @@ if __name__ == '__main__' :
     for thread in threads_iBGP:
         thread.join()
         
+    
+# Ajout des politiques BGP
+    threads_policies = []
+    for AS in data['autonomous_systems'] :
+        policies = AS["BGP Policies"]
+        for router_name, router_info in AS["routers"].items() :
+            port = router_info['port']
+            as_id = AS['as_id']
+            if "eBGP" in router_info.keys():
+                neighbors = router_info['eBGP']['neighbors']
+                t_policies = threading.Thread(target=fct.Policies, args=(host, port, as_id, neighbors, policies, router_name+".txt"))
+                t_policies.start()
+                threads_policies.append(t_policies)
+    for thread in threads_policies:
+        thread.join()
+    
     print("fin")

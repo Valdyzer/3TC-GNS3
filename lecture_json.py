@@ -75,7 +75,6 @@ def data_eBGP(data):
                                 if intf["link_to"] == routerA: 
                                     ipv6 = intf["ip_address"]
                                     position_slash = ipv6.find("/")
-                                    ipv6_neighbor = ipv6[:position_slash]
                                     position_points = ipv6.find("::")
                                     ipv6_network = ipv6[:position_points+2]+ipv6[position_slash:]
                                     router_info["eBGP"]["networks"].append(ipv6_network)
