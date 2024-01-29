@@ -100,9 +100,10 @@ if __name__ == '__main__' :
             
             #Routeurs de bordure
             if "eBGP" in router_info.keys():
+                policies = AS["BGP Policies"]
                 neighbors = router_info['eBGP']['neighbors']
                 networks = router_info['eBGP']['networks']
-                t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks, router_name+".txt"))
+                t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, policies, neighbors, networks, router_name+".txt"))
                 t_eBGP_BR.start()
                 threads_eBGP.append(t_eBGP_BR)
                 
