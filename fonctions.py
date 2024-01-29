@@ -4,12 +4,28 @@ import telnetlib
 import time
 
 def ecriture_fichier(fichier, contenu):
+    """
+    Cette fonction ouvre un fichier en mode 'append' et y écrit le contenu spécifié.
+    
+    Args:
+        fichier (str): Le nom du fichier à ouvrir.
+        contenu (str): Le contenu à écrire dans le fichier.
+    """
     with open(fichier, 'a') as fichier:
         fichier.write(contenu)
 
 
 #Fonction pour effacer la configuration actuelle des routeurs. Elle nous permet de partir d'une configuration vièrge
 def reset_router(host, port, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et réinitialise sa configuration. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     # Connection à Telnet
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
@@ -28,6 +44,14 @@ def reset_router(host, port, fichier):
     ecriture_fichier(fichier, "\r\nenable\r\ndelete nvram:startup-config\r\n\r\n\r\n")
 
 def conft(tn, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et entre en mode de configuration globale. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        tn (Telnet): Une instance de Telnet.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     timer = 0.2
     tn.write(b"\r\n")
     time.sleep(timer)
@@ -39,7 +63,16 @@ def conft(tn, fichier):
     ecriture_fichier(fichier, "\r\nenable\r\nconfigure terminal\r\n")
     
 def configure_router(host, port, interfaces, fichier):
-    # Connection à Telnet
+    """
+    Cette fonction se connecte à un routeur via Telnet et configure ses interfaces. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        interfaces (list): Une liste des interfaces à configurer.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
@@ -76,6 +109,16 @@ def configure_router(host, port, interfaces, fichier):
     ecriture_fichier(fichier, "end\r\nwrite\r\n\r\n")
 
 def configure_RIP(host, port, interfaces, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et configure le protocole RIP. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        interfaces (list): Une liste des interfaces à configurer.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
@@ -112,7 +155,18 @@ def configure_RIP(host, port, interfaces, fichier):
     ecriture_fichier(fichier, 
                      "end\r\nwrite\r\n\r\n")
     
-def configure_OSPF(host, port, router_id, interfaces, fichier): 
+def configure_OSPF(host, port, router_id, interfaces, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et configure le protocole OSPF. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        router_id (str): L'ID du routeur.
+        interfaces (list): Une liste des interfaces à configurer.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """ 
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
@@ -159,6 +213,17 @@ def configure_OSPF(host, port, router_id, interfaces, fichier):
                      "end\r\nwrite\r\n\r\n")
     
 def configure_eBGP(host, port, as_id, router_id, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et configure le protocole eBGP. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        as_id (str): L'ID du système autonome.
+        router_id (str): L'ID du routeur.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
@@ -182,6 +247,18 @@ def configure_eBGP(host, port, as_id, router_id, fichier):
                      "end\r\nwrite\r\n\r\n")
 
 def configure_eBGP_BR(host, port, as_id, policies, neighbors, networks, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et configure le protocole eBGP pour les routeurs de bordure. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        as_id (str): L'ID du système autonome.
+        neighbors (list): Une liste des voisins à configurer.
+        networks (list): Une liste des réseaux à configurer.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
@@ -238,6 +315,20 @@ def configure_eBGP_BR(host, port, as_id, policies, neighbors, networks, fichier)
 
 
 def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et configure le protocole iBGP. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        as_id (str): L'ID du système autonome.
+        ipv6_loopback (str): L'adresse IPv6 de l'interface de bouclage.
+        neighbors (list): Une liste des voisins à configurer.
+        protocol (str): Le protocole de routage à utiliser ("RIP" ou "OSPF").
+        area (str): L'aire OSPF à configurer.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
@@ -294,6 +385,18 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, 
                      "end\r\nwrite\r\n\r\n")
 
 def policies(host, port, as_id, neighbors, policies, fichier):
+    """
+    Cette fonction se connecte à un routeur via Telnet et configure les politiques de routage BGP. 
+    Elle enregistre également les commandes utilisées dans un fichier.
+    
+    Args:
+        host (str): L'adresse IP du routeur.
+        port (int): Le port Telnet du routeur.
+        as_id (str): L'ID du système autonome.
+        neighbors (list): Une liste des voisins à configurer.
+        policies (dict): Un dictionnaire des politiques à appliquer.
+        fichier (str): Le nom du fichier où sauvegarder les commandes.
+    """
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)

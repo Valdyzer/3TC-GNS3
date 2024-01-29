@@ -122,7 +122,7 @@ if __name__ == '__main__' :
             if AS['Policies activate'] == 1:
                 if "eBGP" in router_info.keys():
                     neighbors = router_info['eBGP']['neighbors']
-                    t_policies = threading.Thread(target=fct.policies, args=(host, port, as_id, neighbors, policies, router_name+".txt"))
+                    t_policies = threading.Thread(target=fct.policies, args=(host, port, as_id, neighbors, policies, "Configs/"+router_name+".txt"))
                     t_policies.start()
                     threads_policies.append(t_policies)
     for thread in threads_policies:

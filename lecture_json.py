@@ -3,6 +3,15 @@ import json
 import os
 
 def lect(dict) :
+    """
+    Lit et charge des données depuis un fichier JSON.
+
+    Parameters:
+        dict (str): Nom du fichier JSON.
+
+    Returns:
+        dict: Données chargées depuis le fichier JSON.
+    """
     # path pour le fichier json
     json_file = os.path.join(os.path.dirname(__file__), dict)
     
@@ -14,6 +23,15 @@ def lect(dict) :
     return(data)
 
 def adressage(data):
+    """
+    Attribue des adresses IPv6 aux routeurs en fonction de la structure du sous-réseau.
+
+    Parameters:
+        data (dict): Données réseau au format JSON.
+
+    Returns:
+        None
+    """
     for subnetworks in data["networks"].values():
         for subnetwork, routers in subnetworks.items():
             position = subnetwork.find("::")
@@ -24,6 +42,16 @@ def adressage(data):
 
 
 def data_interf(data): 
+    """
+    Met à jour les informations d'interface en fonction de la structure du réseau dans le dictionnaire.
+    Chaque interface contient {interface, link_to, ip_address, area, border_if (si l'interface est de bordure) et cost (OSPF)}
+
+    Parameters:
+        data (dict): Données réseau au format JSON.
+
+    Returns:
+        None
+    """
     for subnetworks in data["networks"].values():
         for subnetwork, routers in subnetworks.items():
             router = list(routers.keys())
@@ -42,7 +70,17 @@ def data_interf(data):
                     AS["routers"][router[1]]["interfaces"].append(interface) 
                 
 
-def data_iBGP(data): 
+def data_iBGP(data):
+    """
+    Configure les informations iBGP pour les routeurs. L'adresse loopback sera 
+    2001:192:168:1{num_router}/126 (num_router avec 2 chiffres)
+
+    Parameters:
+        data (dict): Données réseau au format JSON.
+
+    Returns:
+        None
+    """ 
     for AS in data['autonomous_systems']:
         loopback = []
         for router_name, router_info in AS["routers"].items():
@@ -59,6 +97,15 @@ def data_iBGP(data):
             router_info["iBGP"]["neighbors"] = [addr for addr in loopback if addr != router_info["iBGP"]["ipv6 loopback"]]   
 
 def data_eBGP(data): 
+    """
+    Configure les informations eBGP pour les routeurs telles que les neighbors eBGP et les networks 
+
+    Parameters:
+        data (dict): Données réseau au format JSON.
+
+    Returns:
+        None
+    """
     for AS in data['autonomous_systems']:
         for routerA, router_info in AS['routers'].items():
             for interface in router_info["interfaces"]:
@@ -83,6 +130,16 @@ def data_eBGP(data):
                     print(router_info["eBGP"])
 
 def init_json(dict):
+    """
+    Initialise et configure les données réseau à partir d'un fichier JSON.
+    Fonction qui appelle toutes les autres fonctions pour remplir automatiquement le dictionnaire 
+
+    Parameters:
+        dict (str): Chemin relatif du fichier JSON.
+
+    Returns:
+        dict: Données réseau configurées.
+    """
     data = lect(dict)
     adressage(data)
     data_interf(data)
@@ -92,6 +149,18 @@ def init_json(dict):
   
 
 def init_GNS3(data, nom_projet):
+    """
+    Initialise et configure la connexion à un projet GNS3 avec des informations réseau.
+
+    Parameters:
+        data (dict): Données réseau au format JSON.
+        nom_projet (str): Nom du projet GNS3.
+        host (str): adresse ip de la machine
+
+    Returns:
+        None
+        
+    """
     # Connect to GNS3 server
     gns3_server = Gns3Connector("http://127.0.0.1:3080")
     # Se connecter au projet
@@ -103,27 +172,3 @@ def init_GNS3(data, nom_projet):
             node = Node(project_id=project.project_id, name=router, node_type="dynamips", connector=gns3_server)
             node.start()
             AS["routers"][router]['gns3_id'] = node.node_id
-""" 
-    for link in data['links']:
-        source_node = link['from'] #R1, nous avons besoin du node_id et pas du nom du routeur
-        target_node = link['to']
-        interface_a = link['interface_from']
-        interface_b = link['interface_to']
-        trouve = 0
-        i = 0
-        #on cherche les node_id
-        while i < len(data['autonomous_systems']) and trouve < 2:
-            AS = data['autonomous_systems'][i]
-            for router in AS['routers']:
-                if router == source_node: 
-                    node_a = AS["routers"][router]['gns3_id']
-                    trouve += 1
-                if router == target_node: 
-                    node_b = AS["routers"][router]['gns3_id']
-                    trouve += 1
-            i +=1 
-
-        link = Link(project_id=project.project_id, nodes=[node_a, node_b], node_interfaces=[interface_a,interface_b], link_type="ethernet")
-
- """
-
