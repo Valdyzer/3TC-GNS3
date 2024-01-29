@@ -226,12 +226,6 @@ def configure_eBGP_BR(host, port, as_id, policies, neighbors, networks, fichier)
         time.sleep(timer)
         ecriture_fichier(fichier, "ipv6 route " + network + " Null0\r\n")
         
-    for AS, status in policies.items():
-        for neighbor in neighbors :
-            if neighbor["as_id"] == AS[-1] :
-                pass
-         
-        
     tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"write\r\n")
