@@ -81,16 +81,3 @@ exit
 end
 write
 
-
-enable
-configure terminal
-router bgp 4
-address-family ipv6 unicast
-neighbor 2001:192:168:8:1::1 route-map provider in
-exit
-exit
-route-map provider permit 10
-set local-preference 50
-end
-write
-

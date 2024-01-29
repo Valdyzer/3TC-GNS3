@@ -76,16 +76,3 @@ exit
 end
 write
 
-
-enable
-configure terminal
-router bgp 1
-address-family ipv6 unicast
-neighbor 2001:192:168:6:1::2 route-map client in
-exit
-exit
-route-map client permit 10
-set local-preference 300
-end
-write
-
