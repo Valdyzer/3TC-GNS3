@@ -1,4 +1,4 @@
-from gns3fy import Gns3Connector, Project, Node, Link
+from gns3fy import Gns3Connector, Project, Node
 import json
 import os
 
@@ -127,9 +127,8 @@ def data_eBGP(data):
                                     router_info["eBGP"]["networks"].append(ipv6_network)
                                     neighbor = {"ipv6": intf["ip_address"], "as_id": AS1["as_id"]}
                                     router_info["eBGP"]["neighbors"].append(neighbor)
-                    print(router_info["eBGP"])
 
-def init_json(dict):
+def init_json(dict_name):
     """
     Initialise et configure les données réseau à partir d'un fichier JSON.
     Fonction qui appelle toutes les autres fonctions pour remplir automatiquement le dictionnaire 
@@ -140,11 +139,17 @@ def init_json(dict):
     Returns:
         dict: Données réseau configurées.
     """
-    data = lect(dict)
+    data = lect(dict_name)
     adressage(data)
     data_interf(data)
     data_iBGP(data)
     data_eBGP(data)
+    if "\\" in dict_name :
+        dict_name = dict_name[(dict_name.find("\\")+1):]
+    new_json = "auto_" + dict_name 
+    json_object = json.dumps(data, indent=4)
+    with open(new_json, 'w') as fichier_json: 
+        fichier_json.write(json_object)
     return data 
   
 
@@ -172,3 +177,4 @@ def init_GNS3(data, nom_projet):
             node = Node(project_id=project.project_id, name=router, node_type="dynamips", connector=gns3_server)
             node.start()
             AS["routers"][router]['gns3_id'] = node.node_id
+            

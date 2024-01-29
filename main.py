@@ -2,10 +2,25 @@ from lecture_json import *
 import fonctions as fct
 import threading 
 import time
+import sys
 
 if __name__ == '__main__' :
 
-    data = init_json('Policies.json')  
+    if len(sys.argv) < 2:
+        print("required index argument missing, terminating.", file=sys.stderr)
+        sys.exit(1)
+        
+    try:
+        fichier = str(sys.argv[1])
+    except ValueError:
+        print("bad argument: {}, terminating.".format(sys.argv[1]), file=sys.stderr)
+        sys.exit(2)
+        
+    if  fichier[-5:] != ".json":
+        print("bad argument: {}, terminating.".format(fichier), file=sys.stderr)
+        sys.exit(3)
+        
+    data = init_json(fichier)  
     host = "127.0.0.1"
     nom_projet = "Policies"
     init_GNS3(data, nom_projet)

@@ -1,5 +1,3 @@
-from email import policy
-from gns3fy import Gns3Connector, Project, Node, Link
 import telnetlib
 import time
 
