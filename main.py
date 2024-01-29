@@ -117,11 +117,12 @@ if __name__ == '__main__' :
         for router_name, router_info in AS["routers"].items() :
             port = router_info['port']
             as_id = AS['as_id']
-            if "eBGP" in router_info.keys():
-                neighbors = router_info['eBGP']['neighbors']
-                t_policies = threading.Thread(target=fct.Policies, args=(host, port, as_id, neighbors, policies, router_name+".txt"))
-                t_policies.start()
-                threads_policies.append(t_policies)
+            if AS['Policies activate'] == 1:
+                if "eBGP" in router_info.keys():
+                    neighbors = router_info['eBGP']['neighbors']
+                    t_policies = threading.Thread(target=fct.Policies, args=(host, port, as_id, neighbors, policies, router_name+".txt"))
+                    t_policies.start()
+                    threads_policies.append(t_policies)
     for thread in threads_policies:
         thread.join()
     
