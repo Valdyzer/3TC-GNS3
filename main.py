@@ -16,7 +16,7 @@ if __name__ == '__main__' :
     
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
-            os.remove(router_name + ".txt")    
+            os.remove("Configs/"+router_name + ".txt")    
 
             
     # Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
@@ -24,7 +24,7 @@ if __name__ == '__main__' :
 
     for autonomous_system in data['autonomous_systems']:
         for router_name, router_data in autonomous_system['routers'].items():
-            preset = threading.Thread(target=fct.reset_router, args=(host, router_data['port'], router_name+".txt"))
+            preset = threading.Thread(target=fct.reset_router, args=(host, router_data['port'], "Configs/"+router_name+".txt"))
             preset.start()
             threads_reset.append(preset)
 
@@ -39,7 +39,7 @@ if __name__ == '__main__' :
     # Parallélisation pour configurer chaque routeur
     for autonomous_system in data['autonomous_systems']:
         for router_name, router_data in autonomous_system['routers'].items():
-            pconfig= threading.Thread(target=fct.configure_router, args=(host, router_data['port'], router_data['interfaces'], router_name+".txt"))
+            pconfig= threading.Thread(target=fct.configure_router, args=(host, router_data['port'], router_data['interfaces'], "Configs/"+router_name+".txt"))
             pconfig.start()
             threads_config.append(pconfig)
     for thread in threads_config: 
@@ -54,7 +54,7 @@ if __name__ == '__main__' :
             for router_name, router_info in AS['routers'].items():
                 port = router_info['port']
                 interfaces = router_info['interfaces']
-                pRIP = threading.Thread(target=fct.configure_RIP,args=(host, port, interfaces, router_name+".txt"))
+                pRIP = threading.Thread(target=fct.configure_RIP,args=(host, port, interfaces, "Configs/"+router_name+".txt"))
                 pRIP.start()
                 threads_IGP.append(pRIP)
         # Regarde si le protocol de l'AS est OSPF
@@ -63,7 +63,7 @@ if __name__ == '__main__' :
                 port = router_info['port']
                 router_id = router_info['router_id']
                 interfaces = router_info['interfaces']
-                pOSPF = threading.Thread(target=fct.configure_OSPF, args=(host, port, router_id, interfaces, router_name+".txt"))
+                pOSPF = threading.Thread(target=fct.configure_OSPF, args=(host, port, router_id, interfaces, "Configs/"+router_name+".txt"))
                 pOSPF.start()
                 threads_IGP.append(pOSPF)
                 
@@ -78,15 +78,16 @@ if __name__ == '__main__' :
             port = router_info['port']
             as_id = AS['as_id']
             router_id = router_info['router_id']
-            t_eBGP = threading.Thread(target=fct.configure_eBGP, args=(host, port, as_id, router_id, router_name+".txt"))
+            t_eBGP = threading.Thread(target=fct.configure_eBGP, args=(host, port, as_id, router_id, "Configs/"+router_name+".txt"))
             t_eBGP.start()
             t_eBGP.join()  
             
             #Routeurs de bordure
             if "eBGP" in router_info.keys():
+                policies = AS["BGP Policies"]
                 neighbors = router_info['eBGP']['neighbors']
                 networks = router_info['eBGP']['networks']
-                t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, neighbors, networks, router_name+".txt"))
+                t_eBGP_BR = threading.Thread(target=fct.configure_eBGP_BR, args=(host, port, as_id, policies, neighbors, networks, "Configs/"+router_name+".txt"))
                 t_eBGP_BR.start()
                 threads_eBGP.append(t_eBGP_BR)
                 
@@ -103,7 +104,7 @@ if __name__ == '__main__' :
             neighbors = router_info['iBGP']['neighbors']
             protocol = AS['protocol']
             area = router_info['interfaces'][0]['area']    
-            t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area, router_name+".txt"))
+            t_iBGP = threading.Thread(target=fct.configure_iBGP, args=(host, port, as_id, ipv6, neighbors, protocol, area, "Configs/"+router_name+".txt"))
             t_iBGP.start()
             threads_iBGP.append(t_iBGP)
     for thread in threads_iBGP:

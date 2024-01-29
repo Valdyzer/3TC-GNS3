@@ -181,7 +181,7 @@ def configure_eBGP(host, port, as_id, router_id, fichier):
                      "bgp router " + router_id + "\r\n" +
                      "end\r\nwrite\r\n\r\n")
 
-def configure_eBGP_BR(host, port, as_id, neighbors, networks, fichier):
+def configure_eBGP_BR(host, port, as_id, policies, neighbors, networks, fichier):
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
@@ -225,6 +225,7 @@ def configure_eBGP_BR(host, port, as_id, neighbors, networks, fichier):
         tn.write("ipv6 route {} Null0\r\n".format(network).encode('ascii'))
         time.sleep(timer)
         ecriture_fichier(fichier, "ipv6 route " + network + " Null0\r\n")
+        
     tn.write(b"end\r\n")
     time.sleep(timer)
     tn.write(b"write\r\n")
