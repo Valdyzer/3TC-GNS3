@@ -1,0 +1,26 @@
+
+enable
+configure terminal
+router bgp 2
+address-family ipv6 unicast
+neighbor 2001:192:168:7:1::2 route-map peer in
+exit
+exit
+route-map peer permit 10
+set local-preference 100
+end
+write
+
+
+enable
+configure terminal
+router bgp 2
+address-family ipv6 unicast
+neighbor 2001:192:168:7:1::2 route-map peer in
+exit
+exit
+route-map peer permit 10
+set local-preference 100
+end
+write
+

@@ -5,7 +5,7 @@
       "network address": "2001:192:168:1::/64",
       "protocol": "RIP",
       "BGP Policies": {"AS2": "client"},
-      "Policies activate": "0",
+      "Policies activate": 0,
       "routers": {
         "R1":{
           "router_id": "1.1.1.1",
@@ -26,7 +26,7 @@
       "network address": "2001:192:168:2::/64",
       "protocol": "OSPF",
       "BGP Policies": {"AS1": "provider", "AS3": "peer", "AS4": "client", "AS5": "client"},
-      "Policies activate": "1",
+      "Policies activate": 1,
       "routers": {
         "R3":{
             "router_id": "3.3.3.3",
@@ -71,7 +71,7 @@
       "network address": "2001:192:168:3::/64",
       "protocol": "OSPF",
       "BGP Policies": {"AS2": "peer"},
-      "Policies activate": "0",
+      "Policies activate": 0,
       "routers": 
       {
         "R9":{
@@ -93,7 +93,7 @@
       "network address": "2001:192:168:4::/64",
       "protocol": "OSPF",
       "BGP Policies": {"AS2": "provider"},
-      "Policies activate": "0",
+      "Policies activate": 0,
       "routers": 
       {
         "R11":{
@@ -115,7 +115,7 @@
       "network address": "2001:192:168:5::/64",
       "protocol": "OSPF",
       "BGP Policies": {"AS2": "provider"},
-      "Policies activate": "0",
+      "Policies activate": 0,
       "routers":
       {
         "R13":{

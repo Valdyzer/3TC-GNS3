@@ -14,9 +14,10 @@ if __name__ == '__main__' :
 
    # Efface les fichiers R.txt
     
+    
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
-            os.remove("Configs/"+router_name + ".txt")    
+            os.remove("Configs/" + router_name + ".txt")  
 
             
     # Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
@@ -121,7 +122,7 @@ if __name__ == '__main__' :
             if AS['Policies activate'] == 1:
                 if "eBGP" in router_info.keys():
                     neighbors = router_info['eBGP']['neighbors']
-                    t_policies = threading.Thread(target=fct.Policies, args=(host, port, as_id, neighbors, policies, router_name+".txt"))
+                    t_policies = threading.Thread(target=fct.policies, args=(host, port, as_id, neighbors, policies, router_name+".txt"))
                     t_policies.start()
                     threads_policies.append(t_policies)
     for thread in threads_policies:

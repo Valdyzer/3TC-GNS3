@@ -1,5 +1,0 @@
-
-enable
-delete nvram:startup-config
-
-
