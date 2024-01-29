@@ -24,7 +24,7 @@
       "as_id": "2",
       "network address": "2001:192:168:2::/64",
       "protocol": "OSPF",
-      "BGP Policies": {"AS1": "fourniseur", "AS3": "peer", "AS4": "peer", "AS5": "client"},
+      "BGP Policies": {"AS1": "provider", "AS3": "peer", "AS4": "client", "AS5": "client"},
       "routers": {
         "R3":{
             "router_id": "3.3.3.3",
@@ -89,7 +89,7 @@
       "as_id": "4",
       "network address": "2001:192:168:4::/64",
       "protocol": "OSPF",
-      "BGP Policies": {"AS2": "peer"},
+      "BGP Policies": {"AS2": "provider"},
       "routers": 
       {
         "R11":{
@@ -110,7 +110,7 @@
       "as_id": "5",
       "network address": "2001:192:168:5::/64",
       "protocol": "OSPF",
-      "BGP Policies": {"AS2": "fourniseur"},
+      "BGP Policies": {"AS2": "provider"},
       "routers":
       {
         "R13":{
@@ -218,8 +218,8 @@
     },  
     "2001:192:168:9::/64":{
       "2001:192:168:9:1::/126":{
-        "R7": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R13": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R7": {"interface": "GigabitEthernet1/0", "ipv6": ""},
+        "R13": {"interface": "GigabitEthernet1/0", "ipv6": ""}
     }
     }
 }

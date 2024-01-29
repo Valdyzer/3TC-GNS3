@@ -1,0 +1,148 @@
+Jan 25 22:46:42.680 HYPERVISOR: Release 0.2.23-amd64/Darwin (tag 2023010200)
+Jan 25 22:46:42.680 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 52894.
+Jan 25 22:46:42.687 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 25 22:46:42.688 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips 
+Jan 25 22:46:42.688 GENERAL: working_dir=/Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips
+Jan 25 22:46:42.688 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/185f3f1c-9220-4da6-a4f6-c4398df040c9 
+Jan 25 22:46:42.688 GENERAL: working_dir=/Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/185f3f1c-9220-4da6-a4f6-c4398df040c9
+Jan 25 22:46:42.688 HYPERVISOR: exec_cmd: vm create R2 2 c7200 
+Jan 25 22:46:42.688 VM: VM R2 created.
+Jan 25 22:46:42.688 HYPERVISOR: exec_cmd: vm set_con_tcp_port R2 5014 
+Jan 25 22:46:42.689 HYPERVISOR: exec_cmd: c7200 get_mac_addr R2 
+Jan 25 22:46:42.689 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:46:42.689 HYPERVISOR: exec_cmd: vm slot_add_binding R2 0 0 C7200-IO-FE 
+Jan 25 22:46:42.689 HYPERVISOR: exec_cmd: vm set_disk0 R2 0 
+Jan 25 22:46:42.690 HYPERVISOR: exec_cmd: vm set_ios R2 /Users/valentinrenaud/GNS3/images/IOS/c7200-advipservicesk9-mz.152-4.S5.image 
+Jan 25 22:46:42.690 HYPERVISOR: exec_cmd: c7200 set_mac_addr R2 ca02.4cec.0000 
+Jan 25 22:46:42.690 HYPERVISOR: exec_cmd: vm set_nvram R2 512 
+Jan 25 22:46:42.691 HYPERVISOR: exec_cmd: vm set_ram R2 512 
+Jan 25 22:46:42.691 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:46:42.691 HYPERVISOR: exec_cmd: vm slot_add_binding R2 1 0 PA-GE 
+Jan 25 22:46:42.691 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:46:42.691 HYPERVISOR: exec_cmd: vm slot_add_binding R2 2 0 PA-GE 
+Jan 25 22:46:42.691 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:46:42.692 HYPERVISOR: exec_cmd: vm slot_add_binding R2 3 0 PA-GE 
+Jan 25 22:46:42.692 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:46:42.692 HYPERVISOR: exec_cmd: vm slot_add_binding R2 4 0 PA-GE 
+Jan 25 22:46:42.692 HYPERVISOR: exec_cmd: vm set_con_tcp_port R2 5014 
+Jan 25 22:46:43.522 HYPERVISOR: exec_cmd: nio create_udp udp-35f77e5f-a69a-45d0-93ac-f301ef8f636c 10088 127.0.0.1 10089 
+Jan 25 22:46:43.761 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 1 0 udp-35f77e5f-a69a-45d0-93ac-f301ef8f636c 
+Jan 25 22:46:43.762 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:46:43.836 HYPERVISOR: exec_cmd: nio create_udp udp-8f3c5644-efb0-4274-a673-33349b855658 10092 127.0.0.1 10093 
+Jan 25 22:46:43.838 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R2 2 0 udp-8f3c5644-efb0-4274-a673-33349b855658 
+Jan 25 22:46:43.838 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:47:07.471 HYPERVISOR: exec_cmd: vm set_ios R2 /Users/valentinrenaud/GNS3/images/IOS/c7200-advipservicesk9-mz.152-4.S5.image 
+Jan 25 22:47:52.275 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:47:52.276 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:47:52.276 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:47:52.276 HYPERVISOR: exec_cmd: vm set_config R2 configs/i2_startup-config.cfg configs/i2_private-config.cfg 
+Jan 25 22:47:52.277 HYPERVISOR: exec_cmd: vm start R2 
+Jan 25 22:48:12.288 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:48:12.288 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 25 22:48:12.378 VM: VM R2 shutdown.
+Jan 25 22:48:12.378 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:48:12.832 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:48:12.833 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:48:12.833 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:48:12.833 HYPERVISOR: exec_cmd: vm set_config R2 configs/i2_startup-config.cfg configs/i2_private-config.cfg 
+Jan 25 22:48:12.834 HYPERVISOR: exec_cmd: vm start R2 
+Jan 25 22:49:13.086 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:49:43.086 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:49:57.092 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:49:57.093 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:49:57.094 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:50:13.086 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:50:43.087 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:50:48.427 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:50:48.428 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:50:48.428 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:52:36.166 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:52:36.168 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:52:36.168 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:52:43.087 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:52:49.602 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:52:49.603 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 25 22:52:49.694 VM: VM R2 shutdown.
+Jan 25 22:52:49.695 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:52:50.205 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:52:50.205 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:52:50.206 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:52:50.206 HYPERVISOR: exec_cmd: vm set_config R2 configs/i2_startup-config.cfg configs/i2_private-config.cfg 
+Jan 25 22:52:50.206 HYPERVISOR: exec_cmd: vm start R2 
+Jan 25 22:53:50.456 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:54:20.455 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:54:50.455 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:55:20.454 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:55:21.343 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:55:21.344 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:55:21.344 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:55:50.453 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:57:07.441 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:57:07.442 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:57:07.442 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:57:20.450 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:58:20.451 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:58:50.453 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:59:03.798 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 22:59:03.798 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 22:59:03.799 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 22:59:20.452 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 22:59:50.453 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:00:20.454 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:00:50.454 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:01:13.809 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 23:01:13.810 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 23:01:13.811 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:01:20.453 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:01:50.453 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:04:02.426 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 23:04:02.427 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 23:04:02.428 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:04:08.014 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:04:08.015 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 25 23:04:08.113 VM: VM R2 shutdown.
+Jan 25 23:04:08.113 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:04:08.591 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 23:04:08.592 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 23:04:08.592 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:04:08.592 HYPERVISOR: exec_cmd: vm set_config R2 configs/i2_startup-config.cfg configs/i2_private-config.cfg 
+Jan 25 23:04:08.592 HYPERVISOR: exec_cmd: vm start R2 
+Jan 25 23:05:34.316 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 23:05:34.317 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 23:05:34.317 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:05:38.841 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:05:51.339 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:05:51.339 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 25 23:05:51.427 VM: VM R2 shutdown.
+Jan 25 23:05:51.428 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:05:51.918 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 25 23:05:51.918 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 25 23:05:51.919 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:05:51.919 HYPERVISOR: exec_cmd: vm set_config R2 configs/i2_startup-config.cfg configs/i2_private-config.cfg 
+Jan 25 23:05:51.919 HYPERVISOR: exec_cmd: vm start R2 
+Jan 25 23:07:22.177 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:07:52.179 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:08:22.181 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:08:52.182 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 25 23:12:50.774 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 25 23:12:50.775 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 25 23:12:50.881 VM: VM R2 shutdown.
+Jan 25 23:12:50.882 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 26 01:38:04.340 HYPERVISOR: exec_cmd: vm set_ghost_status R2 2 
+Jan 26 01:38:04.340 HYPERVISOR: exec_cmd: vm set_ghost_file R2 /Users/valentinrenaud/Desktop/Studies/INSA Lyon/3TC/GNS3/3TC-GNS3/Policies/project-files/dynamips/c7200-advipservicesk9-mz.152-4.S5.image-512.ghost 
+Jan 26 01:38:04.340 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 26 01:38:04.341 HYPERVISOR: exec_cmd: vm set_config R2 configs/i2_startup-config.cfg configs/i2_private-config.cfg 
+Jan 26 01:38:04.341 HYPERVISOR: exec_cmd: vm start R2 
+Jan 26 01:48:51.727 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 26 01:48:51.727 HYPERVISOR: exec_cmd: vm stop R2 
+Jan 26 01:48:51.839 VM: VM R2 shutdown.
+Jan 26 01:48:51.840 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 26 01:48:54.374 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 26 01:48:54.374 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 26 01:48:54.511 HYPERVISOR: exec_cmd: vm get_status R2 
+Jan 26 01:48:54.512 HYPERVISOR: exec_cmd: vm extract_config R2 
+Jan 26 01:48:54.512 HYPERVISOR: exec_cmd: vm delete R2 
+Jan 26 01:48:54.513 VM: VM R2 destroyed.
+Jan 26 01:48:54.513 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 26 01:48:54.804 HYPERVISOR: Stopped.
+Jan 26 01:48:54.804 GENERAL: reset done.
