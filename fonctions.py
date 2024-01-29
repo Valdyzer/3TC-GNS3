@@ -293,7 +293,7 @@ def configure_iBGP(host, port, as_id, ipv6_loopback, neighbors, protocol, area, 
     ecriture_fichier(fichier,
                      "end\r\nwrite\r\n\r\n")
 
-def Policies(host, port, as_id, neighbors, policies, fichier):
+def policies(host, port, as_id, neighbors, policies, fichier):
     tn = telnetlib.Telnet(host, port)
     timer = 0.2
     conft(tn, fichier)
