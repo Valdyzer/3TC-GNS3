@@ -173,9 +173,9 @@ def init_GNS3(data, nom_projet):
     project.get()
 
     for AS in data['autonomous_systems']:
-        for router in AS['routers']:
+        for router in AS['routers'].keys():
             node = Node(project_id=project.project_id, name=router, node_type="dynamips", connector=gns3_server)
             node.start()
             node.get()
-            router["port"] = node.console
+            AS['routers'][router]['port'] = node.console
             
