@@ -27,7 +27,7 @@ if __name__ == '__main__' :
     data = lect(fichier)
     # data = init_json(fichier)  
     host = "127.0.0.1"
-    nom_projet = "PGNS3"
+    nom_projet = "Policies"
     init_GNS3(data, nom_projet)
 
     print(data)
