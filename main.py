@@ -4,6 +4,10 @@ import threading
 import time
 import sys
 
+   
+       
+                  
+                
 if __name__ == '__main__' :
 
     if len(sys.argv) < 2:
@@ -19,20 +23,22 @@ if __name__ == '__main__' :
     if  fichier[-5:] != ".json":
         print("bad argument: {}, terminating.".format(fichier), file=sys.stderr)
         sys.exit(3)
-        
-    data = init_json(fichier)  
+    
+    data = lect(fichier)
+    # data = init_json(fichier)  
     host = "127.0.0.1"
-    nom_projet = "Policies"
+    nom_projet = "PGNS3"
     init_GNS3(data, nom_projet)
 
     print(data)
 
    # Efface les fichiers R.txt
-    
-    
     for AS in data['autonomous_systems']:
         for router_name in AS['routers'].keys():
-            os.remove("Configs/" + router_name + ".txt")  
+            try: os.remove("Configs/" + router_name + ".txt")
+            except OSError as e:
+                print(f"Error: {e.strerror} -> Configs/{router_name}.txt")             
+    
 
             
     # Effacer configuration des routeurs (pour être sûr qu'on part dès zéro)
