@@ -3,3 +3,81 @@ enable
 delete nvram:startup-config
 
 
+
+enable
+configure terminal
+ipv6 unicast-routing
+interface GigabitEthernet2/0
+ipv6 enable
+ipv6 address 2001:192:168:3:1::1/126
+no shutdown
+exit
+interface GigabitEthernet3/0
+ipv6 enable
+ipv6 address 2001:192:168:7:1::2/126
+no shutdown
+exit
+end
+write
+
+
+enable
+configure terminal
+interface GigabitEthernet2/0
+ipv6 ospf 1 area 0
+ipv6 ospf cost 100
+exit
+interface GigabitEthernet3/0
+ipv6 ospf 1 area 0
+ipv6 ospf cost 100
+exit
+ipv6 router ospf 1
+router-id 9.9.9.9
+passive-interface GigabitEthernet3/0
+end
+write
+
+
+enable
+configure terminal
+router bgp 3
+no bgp default ipv4-unicast
+bgp router 9.9.9.9
+end
+write
+
+
+enable
+configure terminal
+router bgp 3
+neighbor 2001:192:168:7:1::1 remote-as 2
+address-family ipv6 unicast
+neighbor 2001:192:168:7:1::1 activate
+exit
+address-family ipv6 unicast
+network 2001:192:168:3::/64
+network 2001:192:168:7:1::/126
+exit
+exit
+ipv6 route 2001:192:168:3::/64 Null0
+ipv6 route 2001:192:168:7:1::/126 Null0
+end
+write
+
+
+enable
+configure terminal
+interface loopback 0
+ipv6 enable
+ipv6 address 2001:192:168:109::1/126
+ipv6 ospf 1 area 0
+exit
+router bgp 3
+neighbor 2001:192:168:110::1/126 remote-as 3
+neighbor 2001:192:168:110::1/126 update-source loopback 0
+address-family ipv6 unicast
+neighbor 2001:192:168:110::1 activate
+exit
+end
+write
+
