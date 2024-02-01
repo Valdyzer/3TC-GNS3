@@ -57,18 +57,18 @@ def data_interf(data):
             router = list(routers.keys())
             for AS in data['autonomous_systems']:
                 if (router[0] in AS["routers"].keys()) and (router[1] in AS["routers"].keys()) :
-                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 0, "cost": "100"}
+                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 0, "cost": routers[router[0]]["cost"]}
                     AS["routers"][router[0]]["interfaces"].append(interface)
-                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 0, "cost": "100"}
+                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 0, "cost": routers[router[1]]["cost"]}
                     AS["routers"][router[1]]["interfaces"].append(interface)  
                     break 
                 elif router[0] in AS["routers"].keys():
-                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 1, "cost": "100"}
+                    interface = {"interface_id": routers[router[0]]["interface"], "link_to": router[1], "ip_address": routers[router[0]]["ipv6"], "area": "0", "border_if": 1, "cost": routers[router[0]]["cost"]}
                     AS["routers"][router[0]]["interfaces"].append(interface)                
                 elif router[1] in AS["routers"].keys():
-                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 1, "cost": "100"}
+                    interface = {"interface_id": routers[router[1]]["interface"], "link_to": router[0], "ip_address": routers[router[1]]["ipv6"], "area": "0", "border_if": 1, "cost": routers[router[1]]["cost"]}
                     AS["routers"][router[1]]["interfaces"].append(interface) 
-                
+                    
 
 def data_iBGP(data):
     """
@@ -144,9 +144,11 @@ def init_json(dict_name):
     data_interf(data)
     data_iBGP(data)
     data_eBGP(data)
+    dict_name = dict_name[(dict_name.find('\\')+1):]
     if "\\" in dict_name :
-        dict_name = dict_name[(dict_name.find("\\")+1):]
+        dict_name = dict_name[(dict_name.find('\\')+1):]
     new_json = "auto_" + dict_name 
+    print(new_json)
     json_object = json.dumps(data, indent=4)
     with open(new_json, 'w') as fichier_json: 
         fichier_json.write(json_object)

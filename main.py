@@ -21,8 +21,8 @@ if __name__ == '__main__' :
         print("bad argument: {}, terminating.".format(fichier), file=sys.stderr)
         sys.exit(3)
     
-    data = lect(fichier)
-    # data = init_json(fichier)  
+    # data = lect(fichier)
+    data = init_json(fichier)  
     host = "127.0.0.1"
     nom_projet = fichier[fichier.find('/'):fichier.find('.json')]
     init_GNS3(data, nom_projet)
@@ -50,7 +50,7 @@ if __name__ == '__main__' :
     for thread in threads_reset: 
         thread.join()
 
-    print('Va reload stp')
+    print('Vous pouvez dès à présent reload tous les routeurs dans le logiciel GNS. Vous avez 1 minute.')
     time.sleep(60)
 
 

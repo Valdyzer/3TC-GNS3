@@ -128,88 +128,88 @@
   "networks": {
     "2001:192:168:1::/64": {
     "2001:192:168:1:1::/126":{
-        "R1": {"interface": "GigabitEthernet1/0", "ipv6": ""}, 
-        "R2": {"interface": "GigabitEthernet1/0", "ipv6": ""}
+        "R1": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": 50}, 
+        "R2": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": 50}
     }
     },
     "2001:192:168:2::/64":{
     "2001:192:168:2:1::/126":{
-        "R3": {"interface": "GigabitEthernet1/0", "ipv6": ""},
-        "R4": {"interface": "GigabitEthernet1/0", "ipv6": ""}
+        "R3": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": 100},
+        "R4": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": 100}
     }, 
     "2001:192:168:2:2::/126":{
-        "R4": {"interface": "GigabitEthernet2/0", "ipv6": ""}, 
-        "R6": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R4": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100}, 
+        "R6": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100}
     }, 
     "2001:192:168:2:3::/126":{
-        "R3": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R5": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R3": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": 100},
+        "R5": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": 100}
     }, 
     "2001:192:168:2:4::/126":{
-        "R3": {"interface": "GigabitEthernet4/0", "ipv6": ""},
-        "R7": {"interface": "GigabitEthernet4/0", "ipv6": ""}
+        "R3": {"interface": "GigabitEthernet4/0", "ipv6": "", "cost": 100},
+        "R7": {"interface": "GigabitEthernet4/0", "ipv6": "", "cost": 100}
     },
     "2001:192:168:2:5::/126":{
-        "R5": {"interface": "GigabitEthernet1/0", "ipv6": ""},
-        "R6": {"interface": "GigabitEthernet1/0", "ipv6": ""}
+        "R5": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": 100},
+        "R6": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": 100}
     },
     "2001:192:168:2:6::/126":{
-        "R5": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R8": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R5": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100},
+        "R8": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100}
     },
     "2001:192:168:2:7::/126":{
-        "R6": {"interface": "GigabitEthernet4/0", "ipv6": ""},
-        "R8": {"interface": "GigabitEthernet4/0", "ipv6": ""}
+        "R6": {"interface": "GigabitEthernet4/0", "ipv6": "", "cost": 100},
+        "R8": {"interface": "GigabitEthernet4/0", "ipv6": "", "cost": 100}
     },
     "2001:192:168:2:8::/126":{
-        "R7": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R8": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R7": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": 100},
+        "R8": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": 100}
     }
   },
     "2001:192:168:3::/64":{
     "2001:192:168:3:1::/126":{
-        "R9": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R10": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R9": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100},
+        "R10": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100}
     }
     },
     "2001:192:168:4::/64":{
       "2001:192:168:4:1::/126":{
-        "R11": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R12": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R11": {"interface": "GigabitEthernet2/0", "ipv6": "",  "cost": 100},
+        "R12": {"interface": "GigabitEthernet2/0", "ipv6": "",  "cost": 100}
     }
   },
     "2001:192:168:5::/64":{
       "2001:192:168:5:1::/126":{
-        "R13": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R14": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R13": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100},
+        "R14": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": 100}
     },
     "2001:192:168:5:2::/126":{
-        "R13": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R15": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R13": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": 100},
+        "R15": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": 100}
     }
   }, 
     "2001:192:168:6::/64":{
       "2001:192:168:6:1::/126":{
-        "R2": {"interface": "GigabitEthernet2/0", "ipv6": ""},
-        "R3": {"interface": "GigabitEthernet2/0", "ipv6": ""}
+        "R2": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": null},
+        "R3": {"interface": "GigabitEthernet2/0", "ipv6": "", "cost": null}
     }
   },
     "2001:192:168:7::/64":{
       "2001:192:168:7:1::/126":{
-        "R4": {"interface": "GigabitEthernet3/0", "ipv6": ""},
-        "R9": {"interface": "GigabitEthernet3/0", "ipv6": ""}
+        "R4": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": null},
+        "R9": {"interface": "GigabitEthernet3/0", "ipv6": "", "cost": null}
     }    
     },
     "2001:192:168:8::/64":{
       "2001:192:168:8:1::/126":{
-        "R8": {"interface": "GigabitEthernet1/0", "ipv6": ""},
-        "R11": {"interface": "GigabitEthernet1/0", "ipv6": ""}
+        "R8": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": null},
+        "R11": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": null}
     }
     },  
     "2001:192:168:9::/64":{
       "2001:192:168:9:1::/126":{
-        "R7": {"interface": "GigabitEthernet1/0", "ipv6": ""},
-        "R13": {"interface": "GigabitEthernet1/0", "ipv6": ""}
+        "R7": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": null},
+        "R13": {"interface": "GigabitEthernet1/0", "ipv6": "", "cost": null}
     }
     }
 }
